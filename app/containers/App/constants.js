@@ -9,5 +9,5 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const API_ROOT = 'boilerplate/App/API_ROOT';
+export const API_ROOT = 'http://localhost:3001';
 export const DEFAULT_LOCALE = 'en';
