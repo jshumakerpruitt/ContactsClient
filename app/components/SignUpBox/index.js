@@ -16,6 +16,13 @@ import { Flex } from 'reflexbox';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
+// uses currying to generate a filtered onKeyDown
+// which only calls onSubmit if condition is met
+const getOnKeyDown = cb => e => {
+  if(e.type === 'keydown' && e.keyCode === 13 ) {
+    cb()
+  }
+}
 
 function SignUpBox({ onSubmit, toggleSignIn }) {
   return (
@@ -40,6 +47,7 @@ function SignUpBox({ onSubmit, toggleSignIn }) {
         flexColumn
       >
         <Input
+          onKeyDown={getOnKeyDown(onSubmit)}
           label="Email"
           name="email"
           placeholder="Email"
@@ -47,6 +55,7 @@ function SignUpBox({ onSubmit, toggleSignIn }) {
           type="email"
         />
         <Input
+          onKeyDown={getOnKeyDown(onSubmit)}
           label="Username"
           name="username"
           placeholder="Username"
@@ -54,6 +63,7 @@ function SignUpBox({ onSubmit, toggleSignIn }) {
           type="text"
         />
         <Input
+          onKeyDown={getOnKeyDown(onSubmit)}
           label="Password"
           name="password"
           placeholder="Password"
@@ -61,7 +71,6 @@ function SignUpBox({ onSubmit, toggleSignIn }) {
           type="password"
         />
         <Button
-          auto
           className="submitButton"
           onClick={onSubmit}
           backgroundColor="primary"

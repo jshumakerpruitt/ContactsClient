@@ -1,7 +1,9 @@
 /**
+ * SignInBox - dumb sign in component that takes onSubmit
+ *  and toggleSignIn
  *
- * SignInBox
- *
+ *  TODO: this component and SignUpBox are nearly identical;
+ *  should be refactored
  */
 
 import React from 'react';
@@ -16,6 +18,13 @@ import { Flex } from 'reflexbox';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
+// uses currying to generate a filtered onKeyDown
+// which only calls onSubmit if condition is met
+const getOnKeyDown = cb => e => {
+  if(e.type === 'keydown' && e.keyCode === 13 ) {
+    cb()
+  }
+}
 
 function SignInBox({ onSubmit, toggleSignIn }) {
   return (
@@ -40,6 +49,7 @@ function SignInBox({ onSubmit, toggleSignIn }) {
         flexColumn
       >
         <Input
+          onKeyDown={getOnKeyDown(onSubmit)}
           label="Email"
           name="email"
           placeholder="Email"
@@ -47,6 +57,7 @@ function SignInBox({ onSubmit, toggleSignIn }) {
           type="email"
         />
         <Input
+          onKeyDown={getOnKeyDown(onSubmit)}
           label="Password"
           name="password"
           placeholder="Password"

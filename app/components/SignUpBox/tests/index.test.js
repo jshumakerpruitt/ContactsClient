@@ -1,4 +1,7 @@
-import SignUpBox from '../index';
+import React from 'react';
+import { mount, shallow } from 'enzyme';
+import { IntlProvider } from 'react-intl';
+
 import {
   Button,
 } from 'rebass';
@@ -8,8 +11,7 @@ import expect, {
   createSpy,
 } from 'expect';
 
-import { shallow } from 'enzyme';
-import React from 'react';
+import SignUpBox from '../index';
 
 describe('<SignUpBox />', () => {
   let wrapper;
@@ -29,6 +31,7 @@ describe('<SignUpBox />', () => {
     expect(onSubmit).toHaveBeenCalled();
   });
 
+
   it('it should have a password Input', () => {
     expect(wrapper.find('[label="Password"]').name())
       .toEqual('Input');
@@ -44,6 +47,36 @@ describe('<SignUpBox />', () => {
       .toEqual('Input');
   });
 
+  it('should submit on keydown in email', () => {
+    const onSubmit = createSpy();
+    wrapper = mountComponent({ onSubmit });
+
+    const input = wrapper.find('[name="email"]')
+    input.simulate('keyDown', { keyCode: 13})
+
+    expect(onSubmit).toHaveBeenCalled();
+  })
+
+  it('should submit on keydown in username', () => {
+    const onSubmit = createSpy();
+    wrapper = mountComponent({ onSubmit });
+
+    const input = wrapper.find('[name="username"]')
+    input.simulate('keyDown', { keyCode: 13})
+
+    expect(onSubmit).toHaveBeenCalled();
+  })
+
+  it('should submit on keydown in password', () => {
+    const onSubmit = createSpy();
+    wrapper = mountComponent({ onSubmit });
+
+    const input = wrapper.find('[name="password"]')
+    input.simulate('keyDown', { keyCode: 13})
+
+    expect(onSubmit).toHaveBeenCalled();
+  })
+
   it('it should have a link to SignIn', () => {
     expect(wrapper.containsAllMatchingElements([
       <Flex>Have an account?</Flex>,
@@ -54,3 +87,9 @@ describe('<SignUpBox />', () => {
 
 const renderSignUp = (props = {}) =>
   shallow(<SignUpBox {...props} />);
+
+const mountComponent = (props = {}) =>
+  mount(
+    <IntlProvider locale='en'>
+      <SignUpBox {...props} />
+    </IntlProvider>)
