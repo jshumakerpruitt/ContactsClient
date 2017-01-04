@@ -1,17 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { Flex } from 'reflexbox';
+import {
+  Drawer,
+} from 'rebass';
 
-import Header from 'components/Header';
+import Header from 'containers/Header';
 
 function App(props) {
   return (
     <Flex
       style={styles.home}
       flexColumn
-      align="center"
     >
+      <Drawer />
       <Header />
       <Flex
+        mt={3}
         flexAuto
         style={styles.stretchY}
       >
@@ -27,6 +32,7 @@ function App(props) {
 
 App.propTypes = {
   children: React.PropTypes.node,
+  token: React.PropTypes.string,
 };
 
 const styles = {
@@ -40,4 +46,5 @@ const styles = {
     width: '100%',
   },
 };
+
 export default App;

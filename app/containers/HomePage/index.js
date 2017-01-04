@@ -49,7 +49,7 @@ const styles = {
 // hard code values for prototyping UI
 // TODO: move to redux
 const mapStateToProps = () => ({
-  token: '1111',
+  token: '111',
   contacts: [{
     name: 'John Doe',
     avatar: 'http://placehold.it/320/08e/fff',
