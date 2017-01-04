@@ -1,22 +1,17 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 import { Flex } from 'reflexbox';
 import Icon from 'react-geomicons';
 import {
   Heading,
-//  Text, Button,
+  Button,
 } from 'rebass';
 
 export class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  constructor(props) {
-    super(props)
-    this.state = { drawerOpen: false}
-    this.openDrawer = this.openDrawer.bind(this)
-  }
-
-  openDrawer() {
-    this.setState({drawerOpen: true})
+  static propTypes = {
+    loggedIn: React.PropTypes.bool,
+    toggleDrawer: React.PropTypes.func,
   }
 
   render() {
@@ -26,13 +21,20 @@ export class Header extends React.Component { // eslint-disable-line react/prefe
         align="center"
         justify="center"
       >
-      { this.props.loggedIn ?
-        <Icon
-          onClick={this.openDrawer}
-          name="grid"
-          color="white"
-          style={styles.hamburger}
-        /> : ''}
+        { this.props.loggedIn ?
+          <Button
+            p={0}
+            m={0}
+            style={styles.closeButton}
+            onClick={this.props.toggleDrawer}
+          >
+            <Icon
+              style={styles.hamburger}
+              name="grid"
+              color="white"
+            />
+          </Button>
+                  : ''}
         <Heading
           level={1}
           size={1}
@@ -47,13 +49,16 @@ export class Header extends React.Component { // eslint-disable-line react/prefe
 
 const styles = {
   header: {
-    height: '48',
+    height: '48px',
     backgroundColor: '#026aa7',
   },
   hamburger: {
-    position: 'absolute',
+    fontSize: '1.8em',
+  },
+  closeButton: {
     left: '20px',
-    fontSize: '2.0em',
+    position: 'absolute',
+    background: 'none',
   },
 };
 
@@ -61,7 +66,7 @@ const styles = {
 // TODO: move to red
 const mapStateToProps = () => ({
   loggedIn: true,
-})
+});
 
-export default connect(mapStateToProps, )(Header);
+export default connect(mapStateToProps)(Header);
 

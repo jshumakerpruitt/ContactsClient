@@ -15,7 +15,7 @@ describe('<Header />', () => {
   let authWrapper;
   beforeEach(() => {
     wrapper = getShallow();
-    authWrapper = getShallow({loggedIn: true});
+    authWrapper = getShallow({ loggedIn: true });
   });
 
   it('contains the logo', () => {
@@ -42,18 +42,6 @@ describe('<Header />', () => {
       <Icon name="grid" />
     )).toEqual(false);
   });
-
-  it('has an initial state of drawerClosed', () => {
-    expect(wrapper.state('drawerOpen')).toBe(false)
-  })
-
-  it('transitions to drawerOpen on hamburger click', () => {
-    const hamburger = authWrapper.find(Icon)
-    hamburger.simulate('click')
-    expect(authWrapper.state('drawerOpen'))
-     .toEqual(true)
-  })
-
 });
 
 const getShallow = (props = {}) =>

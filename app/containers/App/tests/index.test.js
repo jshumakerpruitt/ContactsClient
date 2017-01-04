@@ -1,8 +1,6 @@
 import App from '../index';
 import Header from 'containers/Header';
-import {
-  Drawer,
-} from 'rebass'
+import AppDrawer from 'components/AppDrawer';
 
 import expect from 'expect';
 import { shallow } from 'enzyme';
@@ -22,7 +20,7 @@ describe('<App />', () => {
     const renderedComponent = shallow(
       <App />
     );
-    expect(renderedComponent.find(Drawer).length)
+    expect(renderedComponent.find(AppDrawer).length)
       .toEqual(1);
   });
 

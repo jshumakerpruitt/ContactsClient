@@ -23,8 +23,8 @@ function ContactGrid({ contacts }) {
     >
       {contacts.length === 0 ? <Text>No Contacts Found.</Text> : ''}
       {contacts.map((contact, i) =>
-        <Flex p={0} mx={2} my={1}>
-          <ContactCard key={i} contact={contact} />
+        <Flex key={i} p={0} mx={2} my={1}>
+          <ContactCard contact={contact} />
         </Flex>
        )}
     </Flex>

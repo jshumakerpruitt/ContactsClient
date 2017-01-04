@@ -1,38 +1,53 @@
 import React from 'react';
-import { connect } from 'react-redux'
 import { Flex } from 'reflexbox';
 import {
-  Drawer,
 } from 'rebass';
+import AppDrawer from 'components/AppDrawer';
 
 import Header from 'containers/Header';
 
-function App(props) {
-  return (
-    <Flex
-      style={styles.home}
-      flexColumn
-    >
-      <Drawer />
-      <Header />
+export class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.state = { drawerOpen: false };
+    this.toggleDrawer = this.toggleDrawer.bind(this);
+  }
+
+  toggleDrawer() {
+    this.setState({ drawerOpen: !this.state.drawerOpen });
+  }
+
+  render() {
+    return (
       <Flex
-        mt={3}
-        flexAuto
-        style={styles.stretchY}
+        style={styles.home}
+        flexColumn
       >
+        <AppDrawer
+          open={this.state.drawerOpen}
+          toggleDrawer={this.toggleDrawer}
+        />
+        <Header
+          toggleDrawer={this.toggleDrawer}
+        />
         <Flex
+          mt={3}
           flexAuto
+          style={styles.stretchY}
         >
-          {React.Children.toArray(props.children)}
+          <Flex
+            flexAuto
+          >
+            {React.Children.toArray(this.props.children)}
+          </Flex>
         </Flex>
       </Flex>
-    </Flex>
-  );
+    );
+  }
 }
 
 App.propTypes = {
   children: React.PropTypes.node,
-  token: React.PropTypes.string,
 };
 
 const styles = {
