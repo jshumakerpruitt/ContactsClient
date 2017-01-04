@@ -13,13 +13,16 @@ import { Flex } from 'reflexbox';
 import * as actions from './actions';
 import { } from 'containers/App/selectors';
 
-import SignInBox from 'components/SignInBox'
+import AuthBox from 'components/AuthBox';
 
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  static propTypes = {
+    signedIn: React.PropTypes.boolean,
+  }
 
   render() {
-    const { signedIn } = this.props
+    const { signedIn } = this.props;
 
     return (
       <Flex
@@ -27,10 +30,10 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         px={1}
         flexColumn
         flexAuto
-        justify='center'
-        align='center'
+        justify="center"
+        align="center"
       >
-        {signedIn ? 'Home Page' : <SignInBox />}
+        {signedIn ? 'Home Page' : <AuthBox />}
       </Flex>
     );
   }

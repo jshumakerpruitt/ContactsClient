@@ -1,6 +1,6 @@
 /**
  *
- * SignInBox
+ * SignUpBox
  *
  */
 
@@ -17,7 +17,7 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
 
-function SignInBox({ onSubmit, toggleSignIn }) {
+function SignUpBox({ onSubmit, toggleSignIn }) {
   return (
     <Flex
       style={styles.signIn}
@@ -47,6 +47,13 @@ function SignInBox({ onSubmit, toggleSignIn }) {
           type="email"
         />
         <Input
+          label="Username"
+          name="username"
+          placeholder="Username"
+          rounded
+          type="text"
+        />
+        <Input
           label="Password"
           name="password"
           placeholder="Password"
@@ -54,6 +61,7 @@ function SignInBox({ onSubmit, toggleSignIn }) {
           type="password"
         />
         <Button
+          auto
           className="submitButton"
           onClick={onSubmit}
           backgroundColor="primary"
@@ -61,22 +69,22 @@ function SignInBox({ onSubmit, toggleSignIn }) {
           inverted
           rounded
         >
-          Sign In
+          Sign Up
         </Button>
       </Flex>
-      <Flex>{"Don't have an account?"}</Flex>
+      <Flex>Have an account?</Flex>
       <button
         className="toggle"
         style={styles.toggle}
         onClick={toggleSignIn}
       >
-        Sign up.
+        Log in.
       </button>
     </Flex>
   );
 }
 
-SignInBox.propTypes = {
+SignUpBox.propTypes = {
   onSubmit: React.PropTypes.func,
   toggleSignIn: React.PropTypes.func,
 };
@@ -90,4 +98,4 @@ const styles = {
     color: 'blue',
   },
 };
-export default SignInBox;
+export default SignUpBox;

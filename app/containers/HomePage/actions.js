@@ -9,8 +9,9 @@ import {
   SIGNIN_SUCCESS,
 } from './constants';
 
-export const submitSignUp = (email, password) => ({
+export const submitSignUp = ({ username, email, password }) => ({
   type: SUBMIT_SIGNUP,
+  username,
   email,
   password,
 });

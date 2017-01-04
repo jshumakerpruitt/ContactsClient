@@ -9,6 +9,3 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const SUBMIT_SIGNUP = 'boilerplate/Home/SUBMIT_SIGNUP';
-export const SUBMIT_SIGNIN = 'boilerplate/Home/SUBMIT_SIGNIN';
-export const SIGNIN_SUCCESS = 'boilerplate/Home/SIGNIN_SUCCESS';
