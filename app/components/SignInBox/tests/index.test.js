@@ -35,23 +35,23 @@ describe('<SignInBox />', () => {
     const onSubmit = createSpy();
     wrapper = mountComponent({ onSubmit });
 
-    const input = wrapper.find('[name="email"]')
-    input.simulate('keyDown', { keyCode: 13})
+    const input = wrapper.find('[name="email"]');
+    input.simulate('keyDown', { keyCode: 13 });
 
     expect(onSubmit).toHaveBeenCalled();
-  })
+  });
 
   it('should submit on keydown in password', () => {
     const onSubmit = createSpy();
     wrapper = mountComponent({ onSubmit });
 
-    const input = wrapper.find('[name="password"]')
-    input.simulate('keyDown', { keyCode: 13})
+    const input = wrapper.find('[name="password"]');
+    input.simulate('keyDown', { keyCode: 13 });
 
     expect(onSubmit).toHaveBeenCalled();
-  })
+  });
 
- it('should have a password Input', () => {
+  it('should have a password Input', () => {
     expect(wrapper.find('[label="Password"]').name()).toEqual('Input');
   });
 
@@ -72,6 +72,6 @@ const renderSignIn = (props = {}) =>
 
 const mountComponent = (props = {}) =>
   mount(
-    <IntlProvider locale='en'>
+    <IntlProvider locale="en">
       <SignInBox {...props} />
-    </IntlProvider>)
+    </IntlProvider>);

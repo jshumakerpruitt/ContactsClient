@@ -51,31 +51,31 @@ describe('<SignUpBox />', () => {
     const onSubmit = createSpy();
     wrapper = mountComponent({ onSubmit });
 
-    const input = wrapper.find('[name="email"]')
-    input.simulate('keyDown', { keyCode: 13})
+    const input = wrapper.find('[name="email"]');
+    input.simulate('keyDown', { keyCode: 13 });
 
     expect(onSubmit).toHaveBeenCalled();
-  })
+  });
 
   it('should submit on keydown in username', () => {
     const onSubmit = createSpy();
     wrapper = mountComponent({ onSubmit });
 
-    const input = wrapper.find('[name="username"]')
-    input.simulate('keyDown', { keyCode: 13})
+    const input = wrapper.find('[name="username"]');
+    input.simulate('keyDown', { keyCode: 13 });
 
     expect(onSubmit).toHaveBeenCalled();
-  })
+  });
 
   it('should submit on keydown in password', () => {
     const onSubmit = createSpy();
     wrapper = mountComponent({ onSubmit });
 
-    const input = wrapper.find('[name="password"]')
-    input.simulate('keyDown', { keyCode: 13})
+    const input = wrapper.find('[name="password"]');
+    input.simulate('keyDown', { keyCode: 13 });
 
     expect(onSubmit).toHaveBeenCalled();
-  })
+  });
 
   it('it should have a link to SignIn', () => {
     expect(wrapper.containsAllMatchingElements([
@@ -90,6 +90,6 @@ const renderSignUp = (props = {}) =>
 
 const mountComponent = (props = {}) =>
   mount(
-    <IntlProvider locale='en'>
+    <IntlProvider locale="en">
       <SignUpBox {...props} />
-    </IntlProvider>)
+    </IntlProvider>);

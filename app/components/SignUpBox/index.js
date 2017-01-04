@@ -18,11 +18,11 @@ import messages from './messages';
 
 // uses currying to generate a filtered onKeyDown
 // which only calls onSubmit if condition is met
-const getOnKeyDown = cb => e => {
-  if(e.type === 'keydown' && e.keyCode === 13 ) {
-    cb()
+const getOnKeyDown = (cb) => (e) => {
+  if (e.type === 'keydown' && e.keyCode === 13) {
+    cb();
   }
-}
+};
 
 function SignUpBox({ onSubmit, toggleSignIn }) {
   return (

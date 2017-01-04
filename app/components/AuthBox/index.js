@@ -22,10 +22,6 @@ class AuthBox extends React.Component { // eslint-disable-line react/prefer-stat
     this.setState({ signIn: !this.state.signIn });
   }
 
-  onSubmit() {
-    console.log('submitting form')
-  }
-
   render() {
     return (
       <Flex
@@ -35,12 +31,13 @@ class AuthBox extends React.Component { // eslint-disable-line react/prefer-stat
         align="center"
       >
         {this.state.signIn ?
-         <SignInBox
-           onSubmit={this.onSubmit}
-           toggleSignIn={this.toggleSignIn}
-         />
-         : <SignUpBox
-             onSubmit={this.onSubmit}
+          <SignInBox
+            onSubmit={() => {}}
+            toggleSignIn={this.toggleSignIn}
+          />
+         :
+           <SignUpBox
+             onSubmit={() => {}}
              toggleSignIn={this.toggleSignIn}
            />}
       </Flex>
