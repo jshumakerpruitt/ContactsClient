@@ -25,12 +25,12 @@ const selectLocationState = () => {
 const selectToken = () => createSelector(
   selectGlobal(),
   (globalState) => globalState.get('token')
-)
+);
 
 const selectAuthError = () => createSelector(
   selectGlobal(),
   (globalState) => globalState.get('authError')
-)
+);
 
 export {
   selectGlobal,

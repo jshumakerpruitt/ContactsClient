@@ -1,5 +1,4 @@
 import {
-  SUBMIT_AUTH,
   RECEIVE_TOKEN,
   RECEIVE_AUTH_ERROR,
 } from './constants';
@@ -15,9 +14,9 @@ const initialState = fromJS({
 function appReducer(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_TOKEN:
-      return state.set('token', action.token)
+      return state.set('token', action.token);
     case RECEIVE_AUTH_ERROR:
-      return state.set('authError', action.authError)
+      return state.set('authError', action.authError);
     default:
       return state;
   }

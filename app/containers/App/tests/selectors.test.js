@@ -25,8 +25,8 @@ describe('selectLocationState', () => {
     const route = fromJS({
       locationBeforeTransitions: null,
     });
-     const mockedState = fromJS({
-       route,
+    const mockedState = fromJS({
+      route,
     });
     expect(locationStateSelector(mockedState)).toEqual(route.toJS());
   });
@@ -35,11 +35,11 @@ describe('selectLocationState', () => {
 describe('selectToken', () => {
   const tokenSelector = selectToken();
   it('should select the token as a string', () => {
-    const token = 'mytoken'
+    const token = 'mytoken';
     const mockedState = fromJS({
       global: {
         token,
-      }
+      },
     });
 
     expect(tokenSelector(mockedState))
@@ -50,11 +50,11 @@ describe('selectToken', () => {
 describe('select authError', () => {
   const authErrorSelector = selectAuthError();
   it('it should select the authError as a string', () => {
-    const authError = 'myerror'
-     const mockedState = fromJS({
-       global: {
-         authError,
-       }
+    const authError = 'myerror';
+    const mockedState = fromJS({
+      global: {
+        authError,
+      },
     });
     expect(authErrorSelector(mockedState)).toEqual(authError);
   });

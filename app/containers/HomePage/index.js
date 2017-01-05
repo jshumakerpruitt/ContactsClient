@@ -19,7 +19,7 @@ import {
 
 import {
   selectContacts,
-} from './selectors'
+} from './selectors';
 
 
 import AuthBox from 'components/AuthBox';
@@ -35,7 +35,6 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   render() {
     const { token } = this.props;
 
-    console.log(this.props)
     return (
       <Flex
         style={styles.homePage}

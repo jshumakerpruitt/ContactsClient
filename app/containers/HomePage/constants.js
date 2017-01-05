@@ -9,3 +9,6 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
+export const REQUEST_CONTACTS = 'contacts/HomePage/REQUEST_CONTACTS';
+export const RECEIVE_CONTACTS = 'contacts/HomePage/RECEIVE_CONTACTS';
+export const RECEIVE_CONTACTS_ERROR = 'contacts_error/HomePage/RECEIVE_CONTACTS_ERROR';

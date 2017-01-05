@@ -25,15 +25,15 @@ export const submitAuth = (email, password) => ({
   type: SUBMIT_AUTH,
   email,
   password,
-})
+});
 
 export const receiveToken = (token) => ({
   type: RECEIVE_TOKEN,
   token,
-})
+});
 
 export const receiveAuthError = (authError) => ({
   type: RECEIVE_AUTH_ERROR,
   authError,
-})
+});
 

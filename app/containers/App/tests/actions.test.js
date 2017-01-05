@@ -41,7 +41,7 @@ describe('App Actions', () => {
 
   describe('receiveAuthError', () => {
     it('should return the correct type and an error msg ', () => {
-      const authError = 'myerror'
+      const authError = 'myerror';
       const expectedResult = {
         type: RECEIVE_AUTH_ERROR,
         authError,
@@ -50,5 +50,4 @@ describe('App Actions', () => {
       expect(receiveAuthError(authError)).toEqual(expectedResult);
     });
   });
-
 });

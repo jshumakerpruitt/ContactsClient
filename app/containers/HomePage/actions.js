@@ -4,25 +4,22 @@
  */
 
 import {
-  SUBMIT_SIGNUP,
-  SUBMIT_SIGNIN,
-  SIGNIN_SUCCESS,
+  REQUEST_CONTACTS,
+  RECEIVE_CONTACTS,
+  RECEIVE_CONTACTS_ERROR,
 } from './constants';
 
-export const submitSignUp = ({ username, email, password }) => ({
-  type: SUBMIT_SIGNUP,
-  username,
-  email,
-  password,
+export const requestContacts = () => ({
+  type: REQUEST_CONTACTS,
 });
 
-export const submitSignIn = (email, password) => ({
-  type: SUBMIT_SIGNIN,
-  email,
-  password,
+export const receiveContacts = (contacts) => ({
+  type: RECEIVE_CONTACTS,
+  contacts,
 });
 
-export const signinSuccess = (user) => ({
-  type: SIGNIN_SUCCESS,
-  user,
+export const receiveContactsError = (contactsError) => ({
+  type: RECEIVE_CONTACTS_ERROR,
+  contactsError,
 });
+
