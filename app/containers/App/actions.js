@@ -16,5 +16,24 @@
  */
 
 import {
+  SUBMIT_AUTH,
+  RECEIVE_TOKEN,
+  RECEIVE_AUTH_ERROR,
 } from './constants';
+
+export const submitAuth = (email, password) => ({
+  type: SUBMIT_AUTH,
+  email,
+  password,
+})
+
+export const receiveToken = (token) => ({
+  type: RECEIVE_TOKEN,
+  token,
+})
+
+export const receiveAuthError = (authError) => ({
+  type: RECEIVE_AUTH_ERROR,
+  authError,
+})
 

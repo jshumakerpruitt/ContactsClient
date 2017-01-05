@@ -10,4 +10,8 @@
  */
 
 export const API_ROOT = 'http://localhost:3001';
+export const SUBMIT_AUTH = 'contacts/App/SUBMIT_AUTH';
+export const RECEIVE_TOKEN = 'contacts/App/RECEIVE_TOKEN';
+export const RECEIVE_AUTH_ERROR = 'contacts/App/RECEIVE_AUTH_ERROR';
+
 export const DEFAULT_LOCALE = 'en';

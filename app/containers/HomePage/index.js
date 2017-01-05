@@ -6,12 +6,15 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-// import { createStructuredSelector } from 'reselect';
+import { createStructuredSelector } from 'reselect';
 
 import { Flex } from 'reflexbox';
 
 import * as actions from './actions';
-import { } from 'containers/App/selectors';
+import {
+//  selectToken,
+//  selectContacts,
+} from 'containers/App/selectors';
 
 import AuthBox from 'components/AuthBox';
 import ContactGrid from 'components/ContactGrid';
@@ -46,43 +49,9 @@ const styles = {
   },
 };
 
-// hard code values for prototyping UI
-// TODO: move to redux
-const mapStateToProps = () => ({
-  token: '111',
-  contacts: [{
-    name: 'John Doe',
-    avatar: 'http://placehold.it/320/08e/fff',
-    notes: 'Product Manager ad ACME Tech',
-  }, {
-    name: 'Jane Doe',
-    avatar: 'http://placehold.it/320/08e/fff',
-    notes: 'Senior Dev at Facebook',
-  }, {
-    name: 'Jane Doe',
-    avatar: 'http://placehold.it/320/08e/fff',
-    notes: 'Senior Dev at Facebook',
-  }, {
-    name: 'Jane Doe',
-    avatar: 'http://placehold.it/320/08e/fff',
-    notes: 'Senior Dev at Facebook',
-  }, {
-    name: 'Jane Doe',
-    avatar: 'http://placehold.it/320/08e/fff',
-    notes: 'Senior Dev at Facebook',
-  }, {
-    name: 'Jane Doe',
-    avatar: 'http://placehold.it/320/08e/fff',
-    notes: 'Senior Dev at Facebook',
-  }, {
-    name: 'Jane Doe',
-    avatar: 'http://placehold.it/320/08e/fff',
-    notes: 'Senior Dev at Facebook',
-  }, {
-    name: 'Jane Doe',
-    avatar: 'http://placehold.it/320/08e/fff',
-    notes: 'Senior Dev at Facebook',
-  }],
+const mapStateToProps = createStructuredSelector({
+//  token: selectToken(),
+//  contacts: selectContacts(),
 });
 
 export default connect(mapStateToProps, actions)(HomePage);

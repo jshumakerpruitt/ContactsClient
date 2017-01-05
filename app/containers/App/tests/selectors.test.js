@@ -4,6 +4,8 @@ import expect from 'expect';
 import {
   selectGlobal,
   selectLocationState,
+  selectToken,
+  selectTokenError,
 } from '../selectors';
 
 describe('selectGlobal', () => {
@@ -14,6 +16,19 @@ describe('selectGlobal', () => {
       global: globalState,
     });
     expect(globalSelector(mockedState)).toEqual(globalState);
+  });
+});
+
+describe('selectLocationState', () => {
+  const locationStateSelector = selectLocationState();
+  it('should select the route as a plain JS object', () => {
+    const route = fromJS({
+      locationBeforeTransitions: null,
+    });
+    const mockedState = fromJS({
+      route,
+    });
+    expect(locationStateSelector(mockedState)).toEqual(route.toJS());
   });
 });
 
