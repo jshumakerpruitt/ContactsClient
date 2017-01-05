@@ -12,9 +12,15 @@ import { Flex } from 'reflexbox';
 
 import * as actions from './actions';
 import {
-//  selectToken,
+  selectToken,
+  selectAuthError,
 //  selectContacts,
 } from 'containers/App/selectors';
+
+import {
+  selectContacts,
+} from './selectors'
+
 
 import AuthBox from 'components/AuthBox';
 import ContactGrid from 'components/ContactGrid';
@@ -29,6 +35,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   render() {
     const { token } = this.props;
 
+    console.log(this.props)
     return (
       <Flex
         style={styles.homePage}
@@ -50,8 +57,9 @@ const styles = {
 };
 
 const mapStateToProps = createStructuredSelector({
-//  token: selectToken(),
-//  contacts: selectContacts(),
+  token: selectToken(),
+  authError: selectAuthError(),
+  contacts: selectContacts(),
 });
 
 export default connect(mapStateToProps, actions)(HomePage);

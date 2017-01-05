@@ -5,7 +5,7 @@ import {
   selectGlobal,
   selectLocationState,
   selectToken,
-  selectTokenError,
+  selectAuthError,
 } from '../selectors';
 
 describe('selectGlobal', () => {
@@ -25,22 +25,38 @@ describe('selectLocationState', () => {
     const route = fromJS({
       locationBeforeTransitions: null,
     });
-    const mockedState = fromJS({
-      route,
+     const mockedState = fromJS({
+       route,
     });
     expect(locationStateSelector(mockedState)).toEqual(route.toJS());
   });
 });
 
-describe('selectLocationState', () => {
-  const locationStateSelector = selectLocationState();
-  it('should select the route as a plain JS object', () => {
-    const route = fromJS({
-      locationBeforeTransitions: null,
-    });
+describe('selectToken', () => {
+  const tokenSelector = selectToken();
+  it('should select the token as a string', () => {
+    const token = 'mytoken'
     const mockedState = fromJS({
-      route,
+      global: {
+        token,
+      }
     });
-    expect(locationStateSelector(mockedState)).toEqual(route.toJS());
+
+    expect(tokenSelector(mockedState))
+      .toEqual(token);
   });
 });
+
+describe('select authError', () => {
+  const authErrorSelector = selectAuthError();
+  it('it should select the authError as a string', () => {
+    const authError = 'myerror'
+     const mockedState = fromJS({
+       global: {
+         authError,
+       }
+    });
+    expect(authErrorSelector(mockedState)).toEqual(authError);
+  });
+});
+

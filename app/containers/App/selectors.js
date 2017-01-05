@@ -2,7 +2,7 @@
  * The global state selectors
  */
 
-// import { createSelector } from 'reselect';
+import { createSelector } from 'reselect';
 
 const selectGlobal = () => (state) => state.get('global');
 
@@ -22,7 +22,19 @@ const selectLocationState = () => {
   };
 };
 
+const selectToken = () => createSelector(
+  selectGlobal(),
+  (globalState) => globalState.get('token')
+)
+
+const selectAuthError = () => createSelector(
+  selectGlobal(),
+  (globalState) => globalState.get('authError')
+)
+
 export {
   selectGlobal,
   selectLocationState,
+  selectToken,
+  selectAuthError,
 };
