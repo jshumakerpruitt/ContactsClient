@@ -1,10 +1,11 @@
 import AuthBox from '../index';
-import SignInBox from 'components/SignInBox';
-import SignUpBox from 'components/SignUpBox';
 
 import expect from 'expect';
 import { shallow } from 'enzyme';
 import React from 'react';
+
+import SignInForm from 'components/SignInForm';
+import SignUpForm from 'components/SignUpForm';
 
 describe('<AuthBox />', () => {
   let wrapper;
@@ -19,32 +20,54 @@ describe('<AuthBox />', () => {
   it('It should show a SignIn box in signIn state', () => {
     wrapper.setState({ signIn: true });
     expect(
-      wrapper.containsMatchingElement(<SignInBox />)
+      wrapper.containsMatchingElement(<SignInForm />)
     ).toEqual(true);
   });
 
-  it('It should not show a SignUp box in signIn state', () => {
+  it('It should not show a SignUpForm in signIn state', () => {
     wrapper.setState({ signIn: true });
     expect(
-      wrapper.containsMatchingElement(<SignUpBox />)
+      wrapper.containsMatchingElement(<SignUpForm />)
     ).toEqual(false);
   });
 
-  it('It should show a SignUpBox when in signUp state', () => {
+  it('It should show a SignUpForm when in signUp state', () => {
     wrapper.setState({ signIn: false });
     expect(
-      wrapper.containsMatchingElement(<SignUpBox />)
+      wrapper.containsMatchingElement(<SignUpForm />)
     ).toEqual(true);
   });
 
   it('It should not show a SignIn box in signUp state', () => {
     wrapper.setState({ signIn: false });
     expect(
-      wrapper.containsMatchingElement(<SignInBox />)
+      wrapper.containsMatchingElement(<SignInForm />)
     ).toEqual(false);
   });
 
-  it('It should transition from SignUpBox to SignInBox', () => {
+  it('it should have a link to SignIn when in SignUp state', () => {
+    wrapper.setState({ signIn: false });
+    const toggle = wrapper.childAt(0)
+                          .shallow()
+                          .find('.toggle')
+                          .first();
+
+    expect(toggle.text())
+      .toEqual('Log in.');
+  });
+
+  it('it should have a link to SignUp when in SignIn state', () => {
+    wrapper.setState({ signIn: true });
+    const toggle = wrapper.childAt(0)
+                          .shallow()
+                          .find('.toggle')
+                          .first();
+
+    expect(toggle.text())
+      .toEqual('Sign up.');
+  });
+
+  it('It should transition from SignUpForm to SignInForm', () => {
     wrapper.setState({ signIn: false });
     const toggle = wrapper.childAt(0)
                           .shallow()
@@ -56,7 +79,7 @@ describe('<AuthBox />', () => {
     expect(wrapper.state('signIn')).toEqual(true);
   });
 
-  it('It should transition from SignInBox to SignUpBox', () => {
+  it('It should transition from SignInForm to SignUpForm', () => {
     wrapper.setState({ signIn: true });
     const toggle = wrapper.childAt(0)
                           .shallow()
@@ -71,4 +94,3 @@ describe('<AuthBox />', () => {
 
 const getShallowWrapper = () =>
   shallow(<AuthBox />);
-

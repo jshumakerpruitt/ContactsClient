@@ -1,6 +1,5 @@
 /**
  * Tests for HomePage sagas
- */
 
 import expect from 'expect';
 import { takeLatest } from 'redux-saga';
@@ -14,7 +13,6 @@ import {
 /*  getContacts,
   getContactsWatcher,
   contactData,
-*/
 } from '../sagas';
 
 import {
@@ -50,9 +48,10 @@ describe('getToken Saga', () => {
     const selectDescriptor = getTokenGenerator.next().value;
     expect(selectDescriptor).toEqual(select(selectUsername()));
 
-    const requestURL = `${API_ROOT}/user_token`
+    const requestURL = `${API_ROOT}/user_token`;
     const callDescriptor = getTokenGenerator.next(token).value;
     expect(callDescriptor).toEqual(call(request, requestURL));
   });
-
 });
+
+ */

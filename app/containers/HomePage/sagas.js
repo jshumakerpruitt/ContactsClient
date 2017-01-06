@@ -1,9 +1,16 @@
 /**
- * gets the token and the contacts from the API 
+ * gets the token and the contacts from the API
  */
 
 import { takeLatest } from 'redux-saga';
-import { take, call, put, select, fork, cancel } from 'redux-saga/effects';
+import {
+  take,
+  call,
+  put,
+//  select,
+  fork,
+  cancel,
+} from 'redux-saga/effects';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import {
   SUBMIT_AUTH,
@@ -11,12 +18,12 @@ import {
 } from 'containers/App/constants';
 import {
   receiveToken,
-  receiveAuthError
+  receiveAuthError,
 } from 'containers/App/actions';
-import { receiveContacts, receiveContactsError } from './actions';
+// import { receiveContacts, receiveContactsError } from './actions';
 
 import request, { getOptions } from 'utils/request';
-import { selectToken } from 'containers/HomePage/selectors';
+// import { selectToken } from 'containers/HomePage/selectors';
 
 /**
  * token request/response handler
@@ -26,10 +33,10 @@ export function* getToken(action) {
   const body = {
     auth: {
       email: action.email,
-      password: action.password
-    }
-  }
-  const options = getOptions({body, method: 'POST'})
+      password: action.password,
+    },
+  };
+  const options = getOptions({ body, method: 'POST' });
 
   try {
     // Call our request helper (see 'utils/request')

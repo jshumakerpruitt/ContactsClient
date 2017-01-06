@@ -1,21 +1,40 @@
 /**
-*
-* AuthBox
-*
-* state = { signIn: Boolean }
-* shows a signin or a sign up form
-*/
+ *
+ * AuthBox
+ *
+ * state = { signIn: Boolean }
+ * shows a signin or a sign up form
+ */
 
 import React from 'react';
 import { Flex } from 'reflexbox';
-import SignInBox from 'components/SignInBox';
-import SignUpBox from 'components/SignUpBox';
+import {
+  Heading,
+} from 'rebass';
+import SignInForm from 'components/SignInForm';
+import SignUpForm from 'components/SignUpForm';
 
-class AuthBox extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class AuthBox extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  static propTypes = {
+    submitAuth: React.PropTypes.func,
+  }
   constructor(props) {
     super(props);
     this.state = { signIn: true };
     this.toggleSignIn = this.toggleSignIn.bind(this);
+    this.signIn = this.signIn.bind(this);
+    this.signUp = this.signUp.bind(this);
+  }
+
+  signIn(data) {
+    const { email, password } = data.toJS();
+    this.props.submitAuth(email, password);
+  }
+
+  signUp() {
+    // TODO: dispatch signUp action when implemented
+    // const { email, username, password } = data.toJS();
+    // this.props.signUp(email, password);
   }
 
   toggleSignIn() {
@@ -23,7 +42,6 @@ class AuthBox extends React.Component { // eslint-disable-line react/prefer-stat
   }
 
   render() {
-    console.log(this.props)
     return (
       <Flex
         col={12}
@@ -31,17 +49,36 @@ class AuthBox extends React.Component { // eslint-disable-line react/prefer-stat
         style={styles.authBox}
         align="center"
       >
-        {this.state.signIn ?
-          <SignInBox
-            onSubmit={() => {}}
-            toggleSignIn={this.toggleSignIn}
-            onSubmit={this.props.submitAuth}
-          />
-         :
-           <SignUpBox
-             onSubmit={() => {}}
-             toggleSignIn={this.toggleSignIn}
-           />}
+        <Flex
+          flexAuto
+          p={3}
+          flexColumn
+          align="center"
+          justify="center"
+        >
+          <Heading
+            p={3}
+            level={1}
+            size={1}
+          >
+            {this.state.signIn ? 'Log In' : 'Sign Up'}
+          </Heading>
+          {this.state.signIn ?
+            <SignInForm submitForm={this.signIn} />
+           : <SignUpForm submitForm={this.signUp} />}
+          <Flex>
+            {this.state.signIn ?
+           "Don't Have and account?"
+           : 'Have an account?'}
+          </Flex>
+          <button
+            className="toggle"
+            style={styles.toggle}
+            onClick={this.toggleSignIn}
+          >
+            {this.state.signIn ? 'Sign up.' : 'Log in.'}
+          </button>
+        </Flex>
       </Flex>
     );
   }
@@ -51,6 +88,14 @@ const styles = {
     backgroundColor: '#FFF',
     borderRadius: '8px',
     maxWidth: '350px',
+  },
+  toggle: {
+    cursor: 'pointer',
+    textDecoration: 'underline',
+    background: 'none!important',
+    border: 'none',
+    padding: '0!important',
+    color: 'blue',
   },
 };
 

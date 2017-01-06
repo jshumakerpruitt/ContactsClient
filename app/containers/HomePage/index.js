@@ -10,10 +10,9 @@ import { createStructuredSelector } from 'reselect';
 
 import { Flex } from 'reflexbox';
 
-import * as actions from './actions';
-import * as globalActions from 'containers/App/actions'
+// import * as actions from './actions';
+import * as globalActions from 'containers/App/actions';
 import {
-  submitAuth,
   selectToken,
   selectAuthError,
 } from 'containers/App/selectors';
@@ -31,12 +30,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   static propTypes = {
     contacts: React.PropTypes.array,
     token: React.PropTypes.string,
+    submitAuth: React.PropTypes.func,
   }
 
   render() {
     const { token } = this.props;
 
-      console.log(this.props)
     return (
       <Flex
         style={styles.homePage}
@@ -46,7 +45,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         justify="center"
         align="center"
       >
-        {token ? <ContactGrid contacts={this.props.contacts} /> : <AuthBox submitAuth={this.props.submitAuth}/>}
+        {token ? <ContactGrid contacts={this.props.contacts} /> : <AuthBox submitAuth={this.props.submitAuth} />}
       </Flex>
     );
   }
