@@ -8,42 +8,20 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form/immutable';
 
 import {
-  Input,
   Button,
 } from 'rebass';
 
 import { Flex } from 'reflexbox';
 
-// TODO: this is duplicated in SignInForm
-// move to utils and import
-const inputField = (options) => (field) => (
-  <Input
-    label={options.label}
-    name={field.input.name}
-    value={field.value}
-    onChange={(event) => field.input.onChange(event.target.value)}
-    placeholder={options.placeholder}
-    type={options.type}
-    rounded
-  />
-);
+import {
+  emailField,
+  textField,
+  passwordField,
+} from 'utils/renderField';
 
-const emailField = inputField({
-  label: 'email',
-  placeholder: 'email',
-  type: 'email',
-});
-
-const usernameField = inputField({
+const usernameField = textField({
   label: 'username',
   placeholder: 'username',
-  type: 'text',
-});
-
-const passwordField = inputField({
-  label: 'password',
-  placeholder: 'password',
-  type: 'password',
 });
 
 export class SignUpForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
