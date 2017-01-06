@@ -27,14 +27,13 @@ export class AuthBox extends React.Component { // eslint-disable-line react/pref
   }
 
   signIn(data) {
-    const { email, password } = data.toJS();
-    this.props.submitAuth(email, password);
+    // TODO: add tests to cover this
+    this.props.submitAuth(data.toJS());
   }
 
-  signUp() {
-    // TODO: dispatch signUp action when implemented
-    // const { email, username, password } = data.toJS();
-    // this.props.signUp(email, password);
+  signUp(data) {
+     // TODO: add tests to cover this
+    this.props.submitAuth(data.toJS());
   }
 
   toggleSignIn() {

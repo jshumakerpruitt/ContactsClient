@@ -14,5 +14,6 @@ export const AUTH_URL = `${API_ROOT}/user_token`;
 export const SUBMIT_AUTH = 'contacts/App/SUBMIT_AUTH';
 export const RECEIVE_TOKEN = 'contacts/App/RECEIVE_TOKEN';
 export const RECEIVE_AUTH_ERROR = 'contacts/App/RECEIVE_AUTH_ERROR';
-
+export const SUBMIT_SIGNUP = 'contacts/App/SUBMIT_SIGNUP';
+export const RECEIVE_SIGNUP_ERROR = 'contacts/App/RECEIVE_SIGNUP_ERROR';
 export const DEFAULT_LOCALE = 'en';

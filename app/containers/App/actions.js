@@ -19,13 +19,18 @@ import {
   SUBMIT_AUTH,
   RECEIVE_TOKEN,
   RECEIVE_AUTH_ERROR,
+  SUBMIT_SIGNUP,
+  RECEIVE_SIGNUP_ERROR,
 } from './constants';
 
-export const submitAuth = (email, password) => ({
-  type: SUBMIT_AUTH,
-  email,
-  password,
-});
+export const submitAuth = (params) => {
+  const { email, password } = params;
+  return {
+    type: SUBMIT_AUTH,
+    email,
+    password,
+  };
+};
 
 export const receiveToken = (token) => ({
   type: RECEIVE_TOKEN,
@@ -37,3 +42,17 @@ export const receiveAuthError = (authError) => ({
   authError,
 });
 
+export const submitSignUp = (params) => {
+  const { email, username, password } = params;
+  return {
+    type: SUBMIT_SIGNUP,
+    email,
+    username,
+    password,
+  };
+};
+
+export const receiveSignUpError = (signUpError) => ({
+  type: RECEIVE_SIGNUP_ERROR,
+  signUpError,
+});
