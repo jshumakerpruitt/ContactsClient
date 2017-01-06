@@ -2,8 +2,7 @@
  * SignInBox - dumb sign in component that takes onSubmit
  *  and toggleSignIn
  *
- *  TODO: this component and SignUpBox are nearly identical;
- *  should be refactored
+ *  TODO: convert to stateless
  */
 
 import React from 'react';
@@ -42,7 +41,6 @@ const passwordField = inputField({
 });
 
 
-//      <form onSubmit={handleSubmit((data) => { submitForm(data.get('email'), data.get('password')); })} >
 export class SignInForm extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { handleSubmit, submitForm } = this.props;
