@@ -10,6 +10,8 @@ import expect, {
   createSpy,
 } from 'expect';
 
+
+// TODO: add tests for submitting out form
 describe('<SignUpForm />', () => {
   let wrapper;
   beforeEach(() => {

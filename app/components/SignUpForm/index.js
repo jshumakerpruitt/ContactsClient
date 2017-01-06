@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form/immutable';
 
 import {
   Input,
@@ -85,11 +85,10 @@ export class SignUpForm extends React.Component { // eslint-disable-line react/p
             rounded
             type="submit"
           >
-              Sign Up
+            Sign Up
           </Button>
         </Flex>
       </form>
-
     );
   }
 }

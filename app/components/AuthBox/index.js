@@ -17,6 +17,7 @@ import SignUpForm from 'components/SignUpForm';
 export class AuthBox extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     submitAuth: React.PropTypes.func,
+    submitSignUp: React.PropTypes.func,
   }
   constructor(props) {
     super(props);
@@ -33,7 +34,7 @@ export class AuthBox extends React.Component { // eslint-disable-line react/pref
 
   signUp(data) {
      // TODO: add tests to cover this
-    this.props.submitAuth(data.toJS());
+    this.props.submitSignUp(data.toJS());
   }
 
   toggleSignIn() {

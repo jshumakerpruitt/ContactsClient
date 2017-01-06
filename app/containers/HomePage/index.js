@@ -31,6 +31,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     contacts: React.PropTypes.array,
     token: React.PropTypes.string,
     submitAuth: React.PropTypes.func,
+    submitSignUp: React.PropTypes.func,
   }
 
   render() {
@@ -45,7 +46,11 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         justify="center"
         align="center"
       >
-        {token ? <ContactGrid contacts={this.props.contacts} /> : <AuthBox submitAuth={this.props.submitAuth} />}
+        {token ? <ContactGrid contacts={this.props.contacts} /> :
+          <AuthBox
+            submitSignUp={this.props.submitSignUp}
+            submitAuth={this.props.submitAuth}
+          />}
       </Flex>
     );
   }
