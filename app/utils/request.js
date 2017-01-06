@@ -29,6 +29,35 @@ function checkStatus(response) {
 }
 
 /**
+ * builds options hash to pass to fetch
+ * takes a hash with keys [token, method, body]
+ *
+ */
+
+export const getOptions = (params = {}) => {
+  const options = {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  };
+
+  if (params.token && params.token.length > 0) {
+    options.headers.Authorization = `Bearer ${params.token}`;
+  }
+
+  if (params.method) {
+    options.method = params.method;
+  }
+
+  if (params.body) {
+    options.body = JSON.stringify(params.body);
+  }
+
+  return options;
+};
+
+/**
  * Requests a URL, returning a promise
  *
  * @param  {string} url       The URL we want to request
@@ -36,8 +65,10 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
+
 export default function request(url, options) {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON);
 }
+

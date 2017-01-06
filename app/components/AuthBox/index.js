@@ -23,6 +23,7 @@ class AuthBox extends React.Component { // eslint-disable-line react/prefer-stat
   }
 
   render() {
+    console.log(this.props)
     return (
       <Flex
         col={12}
@@ -34,6 +35,7 @@ class AuthBox extends React.Component { // eslint-disable-line react/prefer-stat
           <SignInBox
             onSubmit={() => {}}
             toggleSignIn={this.toggleSignIn}
+            onSubmit={this.props.submitAuth}
           />
          :
            <SignUpBox
