@@ -7,6 +7,9 @@ import {
   REQUEST_CONTACTS,
   RECEIVE_CONTACTS,
   RECEIVE_CONTACTS_ERROR,
+  SUBMIT_CONTACT,
+  CREATE_CONTACT_SUCCESS,
+  CREATE_CONTACT_ERROR,
 } from './constants';
 
 export const requestContacts = () => ({
@@ -18,8 +21,23 @@ export const receiveContacts = (contacts) => ({
   contacts,
 });
 
-export const receiveContactsError = (contactsError) => ({
+export const receiveContactsError = (fetchContactsError) => ({
   type: RECEIVE_CONTACTS_ERROR,
-  contactsError,
+  fetchContactsError,
 });
 
+export const submitContact = (contact) =>
+   ({
+     type: SUBMIT_CONTACT,
+     contact,
+   })
+;
+
+export const createContactSuccess = () => ({
+  type: CREATE_CONTACT_SUCCESS,
+});
+
+export const createContactError = (contactCreationError) => ({
+  type: CREATE_CONTACT_ERROR,
+  contactCreationError,
+});

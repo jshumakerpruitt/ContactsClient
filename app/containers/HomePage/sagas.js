@@ -1,5 +1,6 @@
 /**
  * gets the token and the contacts from the API
+ * TODO: BOO no tests
  */
 
 import { takeLatest } from 'redux-saga';
@@ -7,31 +8,45 @@ import {
   take,
   call,
   put,
-//  select,
+  select,
   fork,
   cancel,
 } from 'redux-saga/effects';
+
 import { LOCATION_CHANGE } from 'react-router-redux';
+
 import {
   SUBMIT_AUTH,
   SUBMIT_SIGNUP,
   AUTH_URL,
   USERS_URL,
+  CONTACTS_URL,
 } from 'containers/App/constants';
+
+import {
+  SUBMIT_CONTACT,
+} from './constants';
+
 import {
   receiveToken,
   receiveAuthError,
   receiveSignUpError,
 } from 'containers/App/actions';
-// import { receiveContacts, receiveContactsError } from './actions';
+
+import {
+//  receiveContacts,
+//  receiveContactsError,
+  createContactSuccess,
+  createContactError,
+} from './actions';
 
 import request, { getOptions } from 'utils/request';
-// import { selectToken } from 'containers/HomePage/selectors';
+import { selectToken } from 'containers/App/selectors';
 
 /**
  * token request/response handler
  */
-export function* getToken(action) {
+export function* postAuth(action) {
   const requestURL = AUTH_URL;
   const body = {
     auth: {
@@ -79,47 +94,47 @@ export function* postSignUp(action) {
   }
 }
 
+/**
+ * contact creation request/response handler
+ */
+export function* postContact(action) {
+  const requestURL = CONTACTS_URL;
 
-/*
-export function* getContacts() {
-  // Select token from store
   const token = yield select(selectToken());
-  const requestURL = AUTH_URL;
+  const body = action.contact;
+  const options = getOptions({ token, body, method: 'POST' });
 
   try {
-    // Call our request helper (see 'utils/request')
-    const repos = yield call(request, requestURL);
-    yield put(reposLoaded(repos, username));
+    const creationResponse = yield call(request,
+                                    requestURL,
+                                    options);
+    yield put(createContactSuccess(creationResponse));
   } catch (err) {
-    yield put(repoLoadingError(err));
+    yield put(createContactError(err));
   }
 }
-/*
-export function* getContacts() {
-  // Select token from store
-  const token = yield select(selectToken());
-  const requestURL = AUTH_URL;
 
-  try {
-    // Call our request helper (see 'utils/request')
-    const repos = yield call(request, requestURL);
-    yield put(reposLoaded(repos, username));
-  } catch (err) {
-    yield put(repoLoadingError(err));
-  }
-}
-*/
+
 /**
  *
  */
-export function* getTokenWatcher() {
-  yield fork(takeLatest, SUBMIT_AUTH, getToken);
+
+export function* postAuthWatcher() {
+  yield fork(takeLatest, SUBMIT_AUTH, postAuth);
 }
 /**
  *
  */
-export function* getSignUpWatcher() {
+
+export function* postSignUpWatcher() {
   yield fork(takeLatest, SUBMIT_SIGNUP, postSignUp);
+}
+
+/**
+ *
+ */
+export function* postContactWatcher() {
+  yield fork(takeLatest, SUBMIT_CONTACT, postContact);
 }
 
 
@@ -128,7 +143,7 @@ export function* getSignUpWatcher() {
  */
 export function* tokenData() {
   // Fork watcher so we can continue execution
-  const watcher = yield fork(getTokenWatcher);
+  const watcher = yield fork(postAuthWatcher);
 
   // Suspend execution until location changes
   yield take(LOCATION_CHANGE);
@@ -141,7 +156,16 @@ export function* tokenData() {
  */
 export function* signUpData() {
   // Fork watcher so we can continue execution
-  const watcher = yield fork(getSignUpWatcher);
+  const watcher = yield fork(postSignUpWatcher);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
+export function* createContactData() {
+  // Fork watcher so we can continue execution
+  const watcher = yield fork(postContactWatcher);
 
   // Suspend execution until location changes
   yield take(LOCATION_CHANGE);
@@ -153,4 +177,5 @@ export function* signUpData() {
 export default [
   tokenData,
   signUpData,
+  createContactData,
 ];

@@ -4,6 +4,7 @@ import homePageReducer from '../reducer';
 import {
   receiveContacts,
   receiveContactsError,
+  createContactError,
 } from '../actions';
 
 import { fromJS } from 'immutable';
@@ -14,7 +15,8 @@ describe('homePageReducer', () => {
   beforeEach(() => {
     state = fromJS({
       contacts: [],
-      contactsError: null,
+      fetchContactsError: null,
+      contactCreationError: null,
     });
   });
 
@@ -33,8 +35,15 @@ describe('homePageReducer', () => {
 
   it('should handle receiveContactsError', () => {
     const fixture = 'myerror';
-    const expectedResult = state.set('contactsError', fixture);
+    const expectedResult = state.set('fetchContactsError', fixture);
     expect(homePageReducer(state, receiveContactsError(fixture)))
+      .toEqual(expectedResult);
+  });
+
+  it('should handle createContactError', () => {
+    const fixture = 'myerror';
+    const expectedResult = state.set('contactCreationError', fixture);
+    expect(homePageReducer(state, createContactError(fixture)))
       .toEqual(expectedResult);
   });
 });

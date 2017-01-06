@@ -10,8 +10,10 @@ import { createStructuredSelector } from 'reselect';
 
 import { Flex } from 'reflexbox';
 
-// import * as actions from './actions';
+// TODO: consider moving auth DUCKS to HomePage
+import * as actions from './actions';
 import * as globalActions from 'containers/App/actions';
+const mergedActions = { ...actions, ...globalActions };
 import {
   selectToken,
   selectAuthError,
@@ -24,6 +26,7 @@ import {
 
 import AuthBox from 'components/AuthBox';
 import ContactGrid from 'components/ContactGrid';
+import ContactForm from 'components/ContactForm';
 
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -32,6 +35,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     token: React.PropTypes.string,
     submitAuth: React.PropTypes.func,
     submitSignUp: React.PropTypes.func,
+    submitContact: React.PropTypes.func,
   }
 
   render() {
@@ -46,7 +50,16 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         justify="center"
         align="center"
       >
-        {token ? <ContactGrid contacts={this.props.contacts} /> :
+        {token ?
+          <Flex
+            flexAuto
+            flexColumn
+          >
+            <ContactForm submitForm={this.props.submitContact} />
+            <ContactGrid contacts={this.props.contacts} />
+          </Flex>
+        :
+
           <AuthBox
             submitSignUp={this.props.submitSignUp}
             submitAuth={this.props.submitAuth}
@@ -67,4 +80,4 @@ const mapStateToProps = createStructuredSelector({
   contacts: selectContacts(),
 });
 
-export default connect(mapStateToProps, globalActions)(HomePage);
+export default connect(mapStateToProps, mergedActions)(HomePage);

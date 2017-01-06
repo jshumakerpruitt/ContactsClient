@@ -13,6 +13,7 @@
 import {
   RECEIVE_CONTACTS,
   RECEIVE_CONTACTS_ERROR,
+  CREATE_CONTACT_ERROR,
 } from './constants';
 
 import { fromJS } from 'immutable';
@@ -20,7 +21,8 @@ import { fromJS } from 'immutable';
 // The initial state of the App
 const initialState = fromJS({
   contacts: [],
-  contactsError: null,
+  fetchContactsError: null,
+  contactCreationError: null,
 });
 
 function homeReducer(state = initialState, action) {
@@ -28,7 +30,9 @@ function homeReducer(state = initialState, action) {
     case RECEIVE_CONTACTS:
       return state.set('contacts', action.contacts);
     case RECEIVE_CONTACTS_ERROR:
-      return state.set('contactsError', action.contactsError);
+      return state.set('fetchContactsError', action.fetchContactsError);
+    case CREATE_CONTACT_ERROR:
+      return state.set('contactCreationError', action.contactCreationError);
     default:
       return state;
   }

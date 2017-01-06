@@ -28,5 +28,5 @@ export const passwordField = inputField({
 export const textField = (params) => inputField({
   label: params.label,
   placeholder: params.placeholder,
-  type: textField,
+  type: 'text',
 });

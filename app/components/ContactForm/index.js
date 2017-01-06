@@ -17,6 +17,11 @@ import {
   emailField,
   textField,
 } from 'utils/renderField';
+const nameField = textField({ label: 'name', placholder: 'name' });
+const phoneField = textField({ label: 'phone', placholder: 'phone' });
+const addressField = textField({ label: 'address', placholder: 'address' });
+const organizationField = textField({ label: 'organization', placholder: 'organization' });
+const birthdayField = textField({ label: 'birthday', placholder: 'birthday' });
 
 // named export of undecorated component for testing
 export const ContactForm = ({ handleSubmit, submitForm }) => (
@@ -29,7 +34,7 @@ export const ContactForm = ({ handleSubmit, submitForm }) => (
       <Field
         name="name"
         type="text"
-        component={textField({ label: 'name', placholder: 'name' })}
+        component={nameField}
       />
       <Field
         name="email"
@@ -39,22 +44,22 @@ export const ContactForm = ({ handleSubmit, submitForm }) => (
       <Field
         name="phone"
         type="text"
-        component={textField({ label: 'phone', placholder: 'phone' })}
+        component={phoneField}
       />
       <Field
         name="address"
         type="text"
-        component={textField({ label: 'address', placholder: 'address' })}
+        component={addressField}
       />
       <Field
         name="organization"
         type="text"
-        component={textField({ label: 'organization', placholder: 'organization' })}
+        component={organizationField}
       />
       <Field
         name="birthday"
         type="text"
-        component={textField({ label: 'birthday', placholder: 'birthday' })}
+        component={birthdayField}
       />
       <Button
         type="submit"
@@ -64,7 +69,7 @@ export const ContactForm = ({ handleSubmit, submitForm }) => (
         inverted
         rounded
       >
-        Log In
+        Create Contact
       </Button>
     </Flex>
   </form>

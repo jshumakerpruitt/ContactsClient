@@ -12,6 +12,7 @@
 export const API_ROOT = 'http://localhost:3001';
 export const AUTH_URL = `${API_ROOT}/user_token`;
 export const USERS_URL = `${API_ROOT}/users`;
+export const CONTACTS_URL = `${API_ROOT}/contacts`;
 export const SUBMIT_AUTH = 'contacts/App/SUBMIT_AUTH';
 export const RECEIVE_TOKEN = 'contacts/App/RECEIVE_TOKEN';
 export const RECEIVE_AUTH_ERROR = 'contacts/App/RECEIVE_AUTH_ERROR';
