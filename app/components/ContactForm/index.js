@@ -17,20 +17,21 @@ import {
   emailField,
   textField,
 } from 'utils/renderField';
-const nameField = textField({ label: 'name', placholder: 'name' });
-const phoneField = textField({ label: 'phone', placholder: 'phone' });
-const addressField = textField({ label: 'address', placholder: 'address' });
-const organizationField = textField({ label: 'organization', placholder: 'organization' });
-const birthdayField = textField({ label: 'birthday', placholder: 'birthday' });
+const nameField = textField({ label: 'name', placeholder: 'name' });
+const phoneField = textField({ label: 'phone', placeholder: 'phone' });
+const addressField = textField({ label: 'address', placeholder: 'address' });
+const organizationField = textField({ label: 'organization', placeholder: 'organization' });
+const birthdayField = textField({ label: 'birthday', placeholder: 'birthday' });
 
 // named export of undecorated component for testing
 export const ContactForm = ({ handleSubmit, submitForm }) => (
-  <form onSubmit={handleSubmit(submitForm)}>
-    <Flex
-      col={12}
-      mb={3}
-      flexColumn
-    >
+  <Flex
+    style={styles.form}
+    col={12}
+    mb={3}
+    flexColumn
+  >
+    <form onSubmit={handleSubmit(submitForm)}>
       <Field
         name="name"
         type="text"
@@ -71,13 +72,19 @@ export const ContactForm = ({ handleSubmit, submitForm }) => (
       >
         Create Contact
       </Button>
-    </Flex>
-  </form>
+    </form>
+  </Flex>
 );
 
 ContactForm.propTypes = {
   handleSubmit: React.PropTypes.func,
   submitForm: React.PropTypes.func,
+};
+
+const styles = {
+  form: {
+    maxWidth: '350px',
+  },
 };
 
 // Decorate the form component

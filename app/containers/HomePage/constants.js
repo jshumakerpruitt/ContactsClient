@@ -11,6 +11,7 @@
 
 export const REQUEST_CONTACTS = 'contacts/HomePage/REQUEST_CONTACTS';
 export const RECEIVE_CONTACTS = 'contacts/HomePage/RECEIVE_CONTACTS';
+export const RECEIVE_CONTACT = 'contacts/HomePage/RECEIVE_CONTACT';
 export const RECEIVE_CONTACTS_ERROR = 'contacts_error/HomePage/RECEIVE_CONTACTS_ERROR';
 
 export const SUBMIT_CONTACT = 'contacts/HomePage/SUBMIT_CONTACT';

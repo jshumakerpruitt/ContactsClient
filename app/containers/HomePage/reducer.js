@@ -12,6 +12,7 @@
 
 import {
   RECEIVE_CONTACTS,
+  RECEIVE_CONTACT,
   RECEIVE_CONTACTS_ERROR,
   CREATE_CONTACT_ERROR,
 } from './constants';
@@ -28,7 +29,9 @@ const initialState = fromJS({
 function homeReducer(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_CONTACTS:
-      return state.set('contacts', action.contacts);
+      return state.set('contacts', fromJS(action.contacts));
+    case RECEIVE_CONTACT:
+      return state.set('contacts', state.get('contacts').unshift(action.contact));
     case RECEIVE_CONTACTS_ERROR:
       return state.set('fetchContactsError', action.fetchContactsError);
     case CREATE_CONTACT_ERROR:

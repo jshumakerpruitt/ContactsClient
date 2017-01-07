@@ -5,7 +5,7 @@ export const inputField = (options) => (field) => (
   <Input
     label={options.label}
     name={field.input.name}
-    value={field.value}
+    value={field.input.value}
     onChange={(event) => field.input.onChange(event.target.value)}
     placeholder={options.placeholder}
     type={options.type}

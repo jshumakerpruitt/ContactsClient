@@ -14,6 +14,7 @@ import { Flex } from 'reflexbox';
 import * as actions from './actions';
 import * as globalActions from 'containers/App/actions';
 const mergedActions = { ...actions, ...globalActions };
+
 import {
   selectToken,
   selectAuthError,
@@ -31,11 +32,11 @@ import ContactForm from 'components/ContactForm';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
-    contacts: React.PropTypes.array,
     token: React.PropTypes.string,
     submitAuth: React.PropTypes.func,
     submitSignUp: React.PropTypes.func,
     submitContact: React.PropTypes.func,
+    requestContacts: React.PropTypes.func,
   }
 
   render() {
@@ -54,24 +55,24 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
           <Flex
             flexAuto
             flexColumn
+            align="center"
           >
-            <ContactForm submitForm={this.props.submitContact} />
-            <ContactGrid contacts={this.props.contacts} />
+            <ContactForm
+              submitForm={this.props.submitContact}
+            />
+            <ContactGrid requestContacts={this.props.requestContacts} />
           </Flex>
-        :
-
-          <AuthBox
-            submitSignUp={this.props.submitSignUp}
-            submitAuth={this.props.submitAuth}
-          />}
+         :
+           <AuthBox
+             submitSignUp={this.props.submitSignUp}
+             submitAuth={this.props.submitAuth}
+           />}
       </Flex>
     );
   }
 }
 
 const styles = {
-  homePage: {
-  },
 };
 
 const mapStateToProps = createStructuredSelector({

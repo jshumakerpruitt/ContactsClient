@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import { Flex } from 'reflexbox';
 import { Text } from 'rebass';
 
-import ContactGrid from '../index';
+import { ContactGrid } from '../index';
 import ContactCard from 'components/ContactCard';
 
 describe('<ContactGrid />', () => {

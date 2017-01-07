@@ -3,6 +3,7 @@ import expect from 'expect';
 import {
   REQUEST_CONTACTS,
   RECEIVE_CONTACTS,
+  RECEIVE_CONTACT,
   RECEIVE_CONTACTS_ERROR,
   SUBMIT_CONTACT,
   CREATE_CONTACT_SUCCESS,
@@ -12,6 +13,7 @@ import {
 import {
   requestContacts,
   receiveContacts,
+  receiveContact,
   receiveContactsError,
   submitContact,
   createContactSuccess,
@@ -40,6 +42,19 @@ describe('HomePage Actions', () => {
       expect(receiveContacts(contacts)).toEqual(expectedResult);
     });
   });
+
+  describe('receiveContact', () => {
+    it('should return the correct type and contacts', () => {
+      const contact = { name: 'joe', email: 'foo@bar.com' };
+      const expectedResult = {
+        type: RECEIVE_CONTACT,
+        contact,
+      };
+
+      expect(receiveContact(contact)).toEqual(expectedResult);
+    });
+  });
+
 
   describe('receiveContactsError', () => {
     it('should return the correct type and error msg', () => {

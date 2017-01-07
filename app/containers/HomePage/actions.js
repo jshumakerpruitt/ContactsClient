@@ -6,6 +6,7 @@
 import {
   REQUEST_CONTACTS,
   RECEIVE_CONTACTS,
+  RECEIVE_CONTACT,
   RECEIVE_CONTACTS_ERROR,
   SUBMIT_CONTACT,
   CREATE_CONTACT_SUCCESS,
@@ -20,6 +21,12 @@ export const receiveContacts = (contacts) => ({
   type: RECEIVE_CONTACTS,
   contacts,
 });
+
+export const receiveContact = (contact) => ({
+  type: RECEIVE_CONTACT,
+  contact,
+});
+
 
 export const receiveContactsError = (fetchContactsError) => ({
   type: RECEIVE_CONTACTS_ERROR,

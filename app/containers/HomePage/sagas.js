@@ -1,7 +1,4 @@
-/**
- * gets the token and the contacts from the API
- * TODO: BOO no tests
- */
+// TODO: BOO no tests
 
 import { takeLatest } from 'redux-saga';
 import {
@@ -12,6 +9,7 @@ import {
   fork,
   cancel,
 } from 'redux-saga/effects';
+import { reset } from 'redux-form/immutable';
 
 import { LOCATION_CHANGE } from 'react-router-redux';
 
@@ -25,6 +23,7 @@ import {
 
 import {
   SUBMIT_CONTACT,
+  REQUEST_CONTACTS,
 } from './constants';
 
 import {
@@ -34,8 +33,9 @@ import {
 } from 'containers/App/actions';
 
 import {
-//  receiveContacts,
-//  receiveContactsError,
+  receiveContacts,
+  receiveContact,
+  receiveContactsError,
   createContactSuccess,
   createContactError,
 } from './actions';
@@ -43,6 +43,7 @@ import {
 import request, { getOptions } from 'utils/request';
 import { selectToken } from 'containers/App/selectors';
 
+// auth sagas
 /**
  * token request/response handler
  */
@@ -68,10 +69,27 @@ export function* postAuth(action) {
   }
 }
 
+// watcher: listens for SUBMIT_AUTH action
+export function* postAuthWatcher() {
+  yield fork(takeLatest, SUBMIT_AUTH, postAuth);
+}
+
+// root auth saga
+export function* authData() {
+  // Fork watcher so we can continue execution
+  const watcher = yield fork(postAuthWatcher);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
 
 /**
+ * signUp sagas
+ *
  * signUp request/response handler
- */
+*/
 export function* postSignUp(action) {
   const requestURL = USERS_URL;
   const body = {
@@ -86,74 +104,20 @@ export function* postSignUp(action) {
   try {
     // Call our request helper (see 'utils/request')
     const signUpResponse = yield call(request,
-                                    requestURL,
-                                    options);
+                                      requestURL,
+                                      options);
     yield put(receiveToken(signUpResponse.jwt));
   } catch (err) {
     yield put(receiveSignUpError(err));
   }
 }
 
-/**
- * contact creation request/response handler
- */
-export function* postContact(action) {
-  const requestURL = CONTACTS_URL;
-
-  const token = yield select(selectToken());
-  const body = action.contact;
-  const options = getOptions({ token, body, method: 'POST' });
-
-  try {
-    const creationResponse = yield call(request,
-                                    requestURL,
-                                    options);
-    yield put(createContactSuccess(creationResponse));
-  } catch (err) {
-    yield put(createContactError(err));
-  }
-}
-
-
-/**
- *
- */
-
-export function* postAuthWatcher() {
-  yield fork(takeLatest, SUBMIT_AUTH, postAuth);
-}
-/**
- *
- */
-
+// watcher: listens for SUBMIT_SIGNUP action
 export function* postSignUpWatcher() {
   yield fork(takeLatest, SUBMIT_SIGNUP, postSignUp);
 }
 
-/**
- *
- */
-export function* postContactWatcher() {
-  yield fork(takeLatest, SUBMIT_CONTACT, postContact);
-}
-
-
-/**
- * Root saga manages watcher lifecycle
- */
-export function* tokenData() {
-  // Fork watcher so we can continue execution
-  const watcher = yield fork(postAuthWatcher);
-
-  // Suspend execution until location changes
-  yield take(LOCATION_CHANGE);
-  yield cancel(watcher);
-}
-
-
-/**
- * Root saga manages watcher lifecycle
- */
+// Root signUp saga
 export function* signUpData() {
   // Fork watcher so we can continue execution
   const watcher = yield fork(postSignUpWatcher);
@@ -163,6 +127,69 @@ export function* signUpData() {
   yield cancel(watcher);
 }
 
+
+/** contact creation sagas
+ *
+ */
+// contact creation request/response handler
+export function* postContact(action) {
+  const requestURL = CONTACTS_URL;
+
+  const token = yield select(selectToken());
+  const body = action.contact;
+  const options = getOptions({ token, body, method: 'POST' });
+
+  try {
+    const creationResponse = yield call(request,
+                                        requestURL,
+                                        options);
+    yield put(createContactSuccess(creationResponse));
+    yield put(receiveContact(action.contact));
+    yield put(reset('contact'));
+  } catch (err) {
+    yield put(createContactError(err));
+  }
+}
+
+// watcher: listens for SUBMIT_CONTACT action
+export function* postContactWatcher() {
+  yield fork(takeLatest, SUBMIT_CONTACT, postContact);
+}
+
+
+/*
+ * fetchContacts sagas
+ **/
+// contacts request/response handler
+export function* fetchContacts() {
+  const requestURL = CONTACTS_URL;
+  const token = yield select(selectToken());
+  const options = getOptions({ token });
+
+  try {
+    const contactsResponse = yield call(request, requestURL, options);
+    yield put(receiveContacts(contactsResponse));
+  } catch (err) {
+    yield put(receiveContactsError(err));
+  }
+}
+
+// watcher: listens for REQUEST_CONTACTS action
+export function* fetchContactsWatcher() {
+  yield fork(takeLatest, REQUEST_CONTACTS, fetchContacts);
+}
+
+// Root contact creation saga
+export function* fetchContactsData() {
+  // Fork watcher so we can continue execution
+  const watcher = yield fork(fetchContactsWatcher);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
+// Root contact creation saga
 export function* createContactData() {
   // Fork watcher so we can continue execution
   const watcher = yield fork(postContactWatcher);
@@ -175,7 +202,8 @@ export function* createContactData() {
 
 // Bootstrap sagas
 export default [
-  tokenData,
+  authData,
   signUpData,
   createContactData,
+  fetchContactsData,
 ];

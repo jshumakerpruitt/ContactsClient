@@ -3,6 +3,7 @@ import homePageReducer from '../reducer';
 
 import {
   receiveContacts,
+  receiveContact,
   receiveContactsError,
   createContactError,
 } from '../actions';
@@ -27,9 +28,17 @@ describe('homePageReducer', () => {
   });
 
   it('should handle receiveContacts', () => {
-    const fixture = [1, 2];
+    const fixture = fromJS([1, 2, 3]);
     const expectedResult = state.set('contacts', fixture);
     expect(homePageReducer(state, receiveContacts(fixture)))
+      .toEqual(expectedResult);
+  });
+
+  it('should handle receiveContact', () => {
+    const fixture = { name: 'joe', email: 'foo@bar.com' };
+    const expectedResult = state.set('contacts',
+                                state.get('contacts').unshift(fixture));
+    expect(homePageReducer(state, receiveContact(fixture)))
       .toEqual(expectedResult);
   });
 

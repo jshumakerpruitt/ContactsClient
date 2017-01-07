@@ -24,15 +24,30 @@ function ContactCard({ contact }) {
         width={256}
         backgroundColor="white"
       >
-        <CardImage src={contact.avatar} />
+        <CardImage
+          src={contact.avatar
+            || 'http://placehold.it/320/08e/fff'}
+        />
         <Heading
           level={2}
           size={3}
         >
-          {contact.name}
+          {contact.name || 'Add Name'}
         </Heading>
         <Text>
-          {contact.notes}
+          {contact.email || 'Add Email Address'}
+        </Text>
+        <Text>
+          {contact.phone || 'Add Phone Number'}
+        </Text>
+        <Text>
+          {contact.address || 'Add Address'}
+        </Text>
+        <Text>
+          {contact.organization || 'Add and Organization'}
+        </Text>
+        <Text>
+          {contact.notes || 'Add a Note'}
         </Text>
       </Card>
     </Flex>
