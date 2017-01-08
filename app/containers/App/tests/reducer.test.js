@@ -2,6 +2,7 @@ import expect from 'expect';
 import appReducer from '../reducer';
 
 import {
+  logOut,
   receiveToken,
   receiveAuthError,
   receiveSignUpError,
@@ -44,6 +45,13 @@ describe('appReducer', () => {
     const fixture = 'myerror';
     const expectedResult = state.set('signUpError', fixture);
     expect(appReducer(state, receiveSignUpError(fixture)))
+      .toEqual(expectedResult);
+  });
+
+  it('should handle logOut', () => {
+    const loggedInState = state.set('token', 'mytoken');
+    const expectedResult = state.set('token', null);
+    expect(appReducer(loggedInState, logOut()))
       .toEqual(expectedResult);
   });
 });

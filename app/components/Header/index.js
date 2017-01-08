@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import { Flex } from 'reflexbox';
 import Icon from 'react-geomicons';
@@ -8,7 +7,7 @@ import {
   Button,
 } from 'rebass';
 
-export class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
+class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     loggedIn: React.PropTypes.bool,
     toggleDrawer: React.PropTypes.func,
@@ -62,11 +61,5 @@ const styles = {
   },
 };
 
-// hard code values for prototyping UI
-// TODO: move to red
-const mapStateToProps = () => ({
-  loggedIn: true,
-});
-
-export default connect(mapStateToProps)(Header);
+export default Header;
 

@@ -4,11 +4,13 @@ import {
   SUBMIT_AUTH,
   RECEIVE_TOKEN,
   RECEIVE_AUTH_ERROR,
+  LOG_OUT,
   SUBMIT_SIGNUP,
   RECEIVE_SIGNUP_ERROR,
 } from '../constants';
 
 import {
+  logOut,
   submitAuth,
   receiveToken,
   receiveAuthError,
@@ -41,6 +43,16 @@ describe('App Actions', () => {
       };
 
       expect(receiveToken(token)).toEqual(expectedResult);
+    });
+  });
+
+  describe('logOut', () => {
+    it('it should have the correct type', () => {
+      const expectedResult = {
+        type: LOG_OUT,
+      };
+
+      expect(logOut()).toEqual(expectedResult);
     });
   });
 

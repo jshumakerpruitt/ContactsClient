@@ -1,5 +1,5 @@
-import App from '../index';
-import Header from 'containers/Header';
+import { App } from '../index';
+import Header from 'components/Header';
 import AppDrawer from 'components/AppDrawer';
 
 import expect from 'expect';

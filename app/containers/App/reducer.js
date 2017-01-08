@@ -2,6 +2,7 @@ import {
   RECEIVE_TOKEN,
   RECEIVE_AUTH_ERROR,
   RECEIVE_SIGNUP_ERROR,
+  LOG_OUT,
 } from './constants';
 
 import { fromJS } from 'immutable';
@@ -21,6 +22,8 @@ function appReducer(state = initialState, action) {
       return state.set('authError', action.authError);
     case RECEIVE_SIGNUP_ERROR:
       return state.set('signUpError', action.signUpError);
+    case LOG_OUT:
+      return state.set('token', null);
     default:
       return state;
   }

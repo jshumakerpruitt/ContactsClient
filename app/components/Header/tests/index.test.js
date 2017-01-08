@@ -8,7 +8,7 @@ import {
   Heading,
 } from 'rebass';
 
-import { Header } from '../index';
+import Header from '../index';
 
 describe('<Header />', () => {
   let wrapper;

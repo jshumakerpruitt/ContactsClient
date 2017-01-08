@@ -19,6 +19,7 @@ import {
   SUBMIT_AUTH,
   RECEIVE_TOKEN,
   RECEIVE_AUTH_ERROR,
+  LOG_OUT,
   SUBMIT_SIGNUP,
   RECEIVE_SIGNUP_ERROR,
 } from './constants';
@@ -35,6 +36,10 @@ export const submitAuth = (params) => {
 export const receiveToken = (token) => ({
   type: RECEIVE_TOKEN,
   token,
+});
+
+export const logOut = () => ({
+  type: LOG_OUT,
 });
 
 export const receiveAuthError = (authError) => ({

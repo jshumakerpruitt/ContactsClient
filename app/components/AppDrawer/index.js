@@ -13,7 +13,11 @@ import {
 } from 'rebass';
 import Icon from 'react-geomicons';
 
-const AppDrawer = ({ open, toggleDrawer }) => (
+const AppDrawer = ({
+  open,
+  toggleDrawer,
+  handleLogOut,
+}) => (
   <Drawer
     open={open}
     backgroundColor="#0079bf"
@@ -68,7 +72,12 @@ const AppDrawer = ({ open, toggleDrawer }) => (
         justify="center"
       >
         <Button
+          className="logout"
           style={styles.menuButton}
+          onClick={() => {
+            handleLogOut();
+            toggleDrawer();
+          }}
         >
           Log Out
         </Button>
@@ -80,6 +89,7 @@ const AppDrawer = ({ open, toggleDrawer }) => (
 AppDrawer.propTypes = {
   open: React.PropTypes.bool,
   toggleDrawer: React.PropTypes.func,
+  handleLogOut: React.PropTypes.func,
 };
 
 const styles = {
