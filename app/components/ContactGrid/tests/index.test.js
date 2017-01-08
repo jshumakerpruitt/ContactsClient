@@ -7,16 +7,13 @@ import ContactCard from 'components/ContactCard';
 
 describe('<ContactGrid />', () => {
   let wrapper;
-  let emptyWrapper;
   beforeEach(() => {
     wrapper = getShallow({ contacts: [1, 2] });
-    emptyWrapper = getShallow();
   });
 
   it('should render an Overlay', () => {
     expect(
-      emptyWrapper
-        .childAt(0).name()
+      wrapper.childAt(0).name()
     ).toEqual('Overlay');
   });
 

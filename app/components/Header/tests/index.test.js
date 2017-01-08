@@ -3,10 +3,7 @@ import expect from 'expect';
 // import { Flex } from 'reflexbox';
 
 import Icon from 'react-geomicons';
-import { shallow } from 'enzyme';
-import {
-  Heading,
-} from 'rebass';
+import { shallow, render } from 'enzyme';
 
 import Header from '../index';
 
@@ -19,15 +16,9 @@ describe('<Header />', () => {
   });
 
   it('contains the logo', () => {
-    expect(wrapper.containsMatchingElement(
-      <Heading
-        level={1}
-        size={1}
-        color="white"
-      >
-          CodeContacts
-      </Heading>
-    )).toEqual(true);
+    const renderedComponent = renderComponent();
+    expect(renderedComponent.text())
+      .toEqual('CodeContacts');
   });
 
   it('contains a hamburger when logged in', () => {
@@ -46,3 +37,9 @@ describe('<Header />', () => {
 
 const getShallow = (props = {}) =>
   shallow(<Header {...props} />);
+
+const renderComponent = (props = {
+  loggedIn: true,
+  toggleDrawer: () => {},
+}) =>
+  render(<Header {...props} />);

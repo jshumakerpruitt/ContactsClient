@@ -41,6 +41,7 @@ function Contact({ contact = {}, onDismiss }) {
       </Flex>
       <Flex
         p={0}
+        mt={3}
         style={styles.imgWrapper}
       >
         <img

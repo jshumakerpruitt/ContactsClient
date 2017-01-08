@@ -64,7 +64,6 @@ export class ContactGrid extends React.Component { // eslint-disable-line react/
             onDismiss={this.closeOverlay}
           />
         </Overlay>
-
         {contacts.length === 0 ? <Text>No Contacts Found.</Text> : ''}
         {contacts.map((contact, i) =>
           <Flex key={i} p={0} mx={2} my={1}>

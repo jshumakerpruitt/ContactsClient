@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 import { Flex } from 'reflexbox';
 import Icon from 'react-geomicons';
@@ -39,7 +40,12 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
           size={1}
           color="white"
         >
-          CodeContacts
+          <Link
+            style={styles.headerLink}
+            to="/"
+          >
+            CodeContacts
+          </Link>
         </Heading>
       </Flex>
     );
@@ -50,6 +56,10 @@ const styles = {
   header: {
     height: '48px',
     backgroundColor: '#026aa7',
+  },
+  headerLink: {
+    textDecoration: 'none',
+    color: '#FFF',
   },
   hamburger: {
     fontSize: '1.8em',
