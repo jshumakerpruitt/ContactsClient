@@ -24,7 +24,7 @@ const organizationField = textField({ label: 'organization', placeholder: 'organ
 const birthdayField = textField({ label: 'birthday', placeholder: 'birthday' });
 
 // named export of undecorated component for testing
-export const ContactForm = ({ handleSubmit, submitForm }) => (
+export const ContactForm = ({ handleSubmit, submitForm, title = 'Submit' }) => (
   <Flex
     style={styles.form}
     col={12}
@@ -71,7 +71,7 @@ export const ContactForm = ({ handleSubmit, submitForm }) => (
         inverted
         rounded
       >
-        Create Contact
+        {title}
       </Button>
     </form>
   </Flex>
@@ -80,6 +80,7 @@ export const ContactForm = ({ handleSubmit, submitForm }) => (
 ContactForm.propTypes = {
   handleSubmit: React.PropTypes.func,
   submitForm: React.PropTypes.func,
+  title: React.PropTypes.string,
 };
 
 const styles = {

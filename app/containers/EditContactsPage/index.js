@@ -5,9 +5,11 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import { Button } from 'rebass';
 import { Flex } from 'reflexbox';
 
 // TODO: consider moving auth DUCKS to HomePage
@@ -47,7 +49,18 @@ export class EditContactsPage extends React.Component { // eslint-disable-line r
           flexColumn
           align="center"
         >
+          <Link to="/">
+            <Button
+              backgroundColor="warning"
+              color="white"
+              inverted
+              rounded
+            >
+              Cancel
+            </Button>
+          </Link>
           <ContactForm
+            title="Update Contact"
             submitForm={() => {}}
           />
         </Flex>

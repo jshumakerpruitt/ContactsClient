@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router';
 import { Flex } from 'reflexbox';
 import {
   Heading,
@@ -77,12 +78,14 @@ function Contact({ contact = {}, onDismiss }) {
           </Text>
           <Flex my={1}>
             <Flex >
-              <Button
-                theme="primary"
-                className="edit-button"
-              >
+              <Link to={`/edit_contact/${contact.id}`}>
+                <Button
+                  theme="primary"
+                  className="edit-button"
+                >
                 Edit
-              </Button>
+                </Button>
+              </Link>
             </Flex>
             <Flex mx={1}>
               <Button

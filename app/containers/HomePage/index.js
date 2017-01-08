@@ -26,7 +26,7 @@ import {
 
 
 import AuthBox from 'components/AuthBox';
-import ContactGrid from 'components/ContactGrid';
+import ContactGrid from 'containers/ContactGrid';
 import ContactForm from 'components/ContactForm';
 
 
@@ -81,7 +81,10 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
               {this.state.formHidden ? '+ Add Contact' : 'x Close'}
             </Button>
             { this.state.formHidden ? '' :
-              <ContactForm submitForm={this.props.submitContact} />}
+              <ContactForm
+                title="Create Contact"
+                submitForm={this.props.submitContact}
+              />}
             <ContactGrid requestContacts={this.props.requestContacts} />
           </Flex>
         :

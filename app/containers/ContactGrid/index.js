@@ -11,7 +11,6 @@ import {
   selectContactIds,
 } from 'containers/HomePage/selectors';
 
-
 import { Flex } from 'reflexbox';
 import {
   Text,
@@ -69,7 +68,12 @@ export class ContactGrid extends React.Component { // eslint-disable-line react/
         {contacts.length === 0 ? <Text>No Contacts Found.</Text> : ''}
         {this.props.contactIds.map((id) =>
           <Flex key={id} p={0} mx={2} my={1}>
-            <ContactCard idx={id} contact={contacts[id]} showContact={this.openOverlay} />
+            <ContactCard
+              idx={id}
+              contact={contacts[id]}
+              showContact={this.openOverlay}
+              width={256}
+            />
           </Flex>
          )}
       </Flex>

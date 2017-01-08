@@ -10,7 +10,7 @@ import React from 'react';
 import { HomePage } from '../index';
 import AuthBox from 'components/AuthBox';
 import ContactForm from 'components/ContactForm';
-import ContactGrid from 'components/ContactGrid';
+import ContactGrid from 'containers/ContactGrid';
 
 describe('<HomePage />', () => {
   it('should render a AuthBox if not logged in', () => {
