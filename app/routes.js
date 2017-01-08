@@ -39,7 +39,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/edit_contact',
+      path: '/edit_contact/:id',
       name: 'editContactsPage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
