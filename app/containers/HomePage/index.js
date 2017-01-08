@@ -22,7 +22,6 @@ import {
 } from 'containers/App/selectors';
 
 import {
-  selectContacts,
 } from './selectors';
 
 
@@ -101,7 +100,6 @@ const styles = {
 const mapStateToProps = createStructuredSelector({
   token: selectToken(),
   authError: selectAuthError(),
-  contacts: selectContacts(),
 });
 
 export default connect(mapStateToProps, mergedActions)(HomePage);

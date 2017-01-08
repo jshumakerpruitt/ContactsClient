@@ -33,10 +33,14 @@ describe('HomePage Actions', () => {
 
   describe('receiveContacts', () => {
     it('should return the correct type and contacts', () => {
-      const contacts = [1, 2];
+      const alice = { id: 1, name: 'alice' };
+      const bob = { id: 2, name: 'bob' };
+      const contacts = [alice, bob];
+
       const expectedResult = {
         type: RECEIVE_CONTACTS,
-        contacts,
+        contacts: { 1: alice, 2: bob },
+        ids: [1, 2],
       };
 
       expect(receiveContacts(contacts)).toEqual(expectedResult);

@@ -11,6 +11,11 @@ const selectContacts = () => createSelector(
   (homeState) => homeState.get('contacts').toJS()
 );
 
+const selectContactIds = () => createSelector(
+  selectHome(),
+  (homeState) => homeState.get('contactIds').toJS()
+);
+
 const selectContactsError = () => createSelector(
   selectHome(),
   (homeState) => homeState.get('contactsError')
@@ -19,5 +24,6 @@ const selectContactsError = () => createSelector(
 export {
   selectHome,
   selectContacts,
+  selectContactIds,
   selectContactsError,
 };

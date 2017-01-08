@@ -9,29 +9,75 @@
  * case YOUR_ACTION_CONSTANT:
  *   return state.set('yourStateVariable', true);
  */
-
+import { combineReducers } from 'redux-immutable';
 import {
   RECEIVE_CONTACTS,
   RECEIVE_CONTACT,
+  UPDATE_CONTACT,
   RECEIVE_CONTACTS_ERROR,
   CREATE_CONTACT_ERROR,
 } from './constants';
 
 import { fromJS } from 'immutable';
 
-// The initial state of the App
+/* The initial state of the App
 const initialState = fromJS({
   contacts: [],
-  fetchContactsError: null,
-  contactCreationError: null,
+   error: {
+   fetchContactsError: null,
+   contactCreationError: null,
+   }
 });
+*/
 
-function homeReducer(state = initialState, action) {
+// Break the reducer into pieces to prevent
+// making changes deep within the state tree
+const contacts = (
+  state = fromJS({}),
+  action
+) => {
   switch (action.type) {
     case RECEIVE_CONTACTS:
-      return state.set('contacts', fromJS(action.contacts));
+      return fromJS(action.contacts);
     case RECEIVE_CONTACT:
-      return state.set('contacts', state.get('contacts').unshift(action.contact));
+      return state.set(
+        String(action.contact.id),
+        fromJS(action.contact)
+      );
+    case UPDATE_CONTACT:
+      return state.set(
+        String(action.contact.id),
+        fromJS(action.contact)
+      );
+    default:
+      return state;
+  }
+};
+
+const contactIds = (
+  state = fromJS([]),
+  action
+) => {
+  switch (action.type) {
+    case RECEIVE_CONTACTS:
+      return fromJS(action.ids);
+    case RECEIVE_CONTACT:
+      return state.unshift(
+        action.contact.id
+      );
+    default:
+      return state;
+  }
+};
+
+const errors = (
+  state = fromJS({
+    fetchContactsError: null,
+    contactCreationError: null,
+  }),
+  action
+) => {
+  switch (action.type) {
     case RECEIVE_CONTACTS_ERROR:
       return state.set('fetchContactsError', action.fetchContactsError);
     case CREATE_CONTACT_ERROR:
@@ -39,6 +85,10 @@ function homeReducer(state = initialState, action) {
     default:
       return state;
   }
-}
+};
 
-export default homeReducer;
+export default combineReducers({
+  contacts,
+  contactIds,
+  errors,
+});

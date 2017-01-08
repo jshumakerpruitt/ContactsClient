@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import {
   selectContacts,
+  selectContactIds,
 } from 'containers/HomePage/selectors';
 
 
@@ -24,7 +25,8 @@ import Contact from 'components/Contact';
 export class ContactGrid extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
     requestContacts: React.PropTypes.func,
-    contacts: React.PropTypes.array,
+    contacts: React.PropTypes.object,
+    contactIds: React.PropTypes.array,
   }
   constructor(props) {
     super(props);
@@ -65,9 +67,9 @@ export class ContactGrid extends React.Component { // eslint-disable-line react/
           />
         </Overlay>
         {contacts.length === 0 ? <Text>No Contacts Found.</Text> : ''}
-        {contacts.map((contact, i) =>
-          <Flex key={i} p={0} mx={2} my={1}>
-            <ContactCard idx={i} contact={contact} showContact={this.openOverlay} />
+        {this.props.contactIds.map((id) =>
+          <Flex key={id} p={0} mx={2} my={1}>
+            <ContactCard idx={id} contact={contacts[id]} showContact={this.openOverlay} />
           </Flex>
          )}
       </Flex>
@@ -77,6 +79,7 @@ export class ContactGrid extends React.Component { // eslint-disable-line react/
 
 const mapStateToProps = createStructuredSelector({
   contacts: selectContacts(),
+  contactIds: selectContactIds(),
 });
 
 export default connect(mapStateToProps)(ContactGrid);

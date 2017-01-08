@@ -8,7 +8,7 @@ import ContactCard from 'components/ContactCard';
 describe('<ContactGrid />', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = getShallow({ contacts: [1, 2] });
+    wrapper = getShallow();
   });
 
   it('should render an Overlay', () => {
@@ -24,7 +24,8 @@ describe('<ContactGrid />', () => {
 });
 
 const getShallow = (props = {
-  contacts: [],
+  contacts: { 1: { id: 1 }, 2: { id: 2 } },
+  contactIds: [1, 2],
   requestContacts: () => {},
 }) =>
   shallow(<ContactGrid {...props} />);

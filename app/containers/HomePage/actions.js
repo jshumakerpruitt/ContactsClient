@@ -3,6 +3,9 @@
  *
  */
 
+import { normalize } from 'normalizr';
+import * as schema from 'utils/schema';
+
 import {
   REQUEST_CONTACTS,
   RECEIVE_CONTACTS,
@@ -17,10 +20,15 @@ export const requestContacts = () => ({
   type: REQUEST_CONTACTS,
 });
 
-export const receiveContacts = (contacts) => ({
-  type: RECEIVE_CONTACTS,
-  contacts,
-});
+export const receiveContacts = (contacts) => {
+  const response = normalize(contacts, schema.arrayOfContacts);
+
+  return {
+    type: RECEIVE_CONTACTS,
+    contacts: response.entities.contacts,
+    ids: response.result,
+  };
+};
 
 export const receiveContact = (contact) => ({
   type: RECEIVE_CONTACT,

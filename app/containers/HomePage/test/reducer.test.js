@@ -15,9 +15,12 @@ describe('homePageReducer', () => {
 
   beforeEach(() => {
     state = fromJS({
-      contacts: [],
-      fetchContactsError: null,
-      contactCreationError: null,
+      contacts: {},
+      contactIds: [],
+      errors: {
+        fetchContactsError: null,
+        contactCreationError: null,
+      },
     });
   });
 
@@ -28,30 +31,36 @@ describe('homePageReducer', () => {
   });
 
   it('should handle receiveContacts', () => {
-    const fixture = fromJS([1, 2, 3]);
-    const expectedResult = state.set('contacts', fixture);
-    expect(homePageReducer(state, receiveContacts(fixture)))
+    const contacts = [{ id: 1, name: 'bob' }, { id: 2, name: 'joe' }];
+    const contactsState = fromJS({ 1: { id: 1, name: 'bob' }, 2: { id: 2, name: 'joe' } });
+    const contactIds = fromJS([1, 2]);
+    const expectedResult = state
+      .set('contacts', contactsState)
+      .set('contactIds', contactIds);
+    expect(homePageReducer(state, receiveContacts(contacts)))
       .toEqual(expectedResult);
   });
 
   it('should handle receiveContact', () => {
-    const fixture = { name: 'joe', email: 'foo@bar.com' };
-    const expectedResult = state.set('contacts',
-                                state.get('contacts').unshift(fixture));
+    const fixture = { id: 1, name: 'joe', email: 'foo@bar.com' };
+    const expectedResult = state.set('contactIds', fromJS([1]))
+                                .set('contacts', fromJS({ 1: fixture }));
+
+
     expect(homePageReducer(state, receiveContact(fixture)))
       .toEqual(expectedResult);
   });
 
   it('should handle receiveContactsError', () => {
     const fixture = 'myerror';
-    const expectedResult = state.set('fetchContactsError', fixture);
+    const expectedResult = state.setIn(['errors', 'fetchContactsError'], fixture);
     expect(homePageReducer(state, receiveContactsError(fixture)))
       .toEqual(expectedResult);
   });
 
   it('should handle createContactError', () => {
     const fixture = 'myerror';
-    const expectedResult = state.set('contactCreationError', fixture);
+    const expectedResult = state.setIn(['errors', 'contactCreationError'], fixture);
     expect(homePageReducer(state, createContactError(fixture)))
       .toEqual(expectedResult);
   });
