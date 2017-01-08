@@ -147,8 +147,8 @@ export function* postContact(action) {
     const creationResponse = yield call(request,
                                         requestURL,
                                         options);
-    yield put(createContactSuccess(creationResponse));
-    yield put(receiveContact(action.contact));
+    yield put(createContactSuccess());
+    yield put(receiveContact(creationResponse));
     yield put(reset('contact'));
   } catch (err) {
     yield put(createContactError(err));
@@ -204,7 +204,7 @@ export function* createContactData() {
 }
 
 
-// Bootstrap sagas
+// Bootstrap
 export default [
   authData,
   signUpData,
