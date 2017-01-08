@@ -14,7 +14,7 @@ import {
   Button,
 } from 'rebass';
 
-function ContactCard({ contact = {}, showContact, width }) {
+function ContactCard({ idx, contact = {}, showContact, width }) {
   const gravatarUrl =
     `https://www.gravatar.com/avatar/${contact.gravatar || 'blank'}?s=260`;
   return (
@@ -49,7 +49,7 @@ function ContactCard({ contact = {}, showContact, width }) {
           </Text>
         </Flex>
         <Button
-          onClick={showContact}
+          onClick={() => { showContact(idx); }}
           style={{}}
           type="submit"
           className="submitButton"
@@ -69,6 +69,7 @@ ContactCard.propTypes = {
   contact: React.PropTypes.object,
   showContact: React.PropTypes.func,
   width: React.PropTypes.number,
+  idx: React.PropTypes.number,
 };
 
 export default ContactCard;

@@ -23,6 +23,7 @@ const AppDrawer = ({
     backgroundColor="#0079bf"
     p={0}
     style={styles.container}
+    onDismiss={toggleDrawer}
   >
     <Flex
       flexColumn

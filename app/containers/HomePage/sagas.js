@@ -65,7 +65,11 @@ export function* postAuth(action) {
     );
     yield put(receiveToken(authResponse.jwt));
   } catch (err) {
-    yield put(receiveAuthError(err));
+    // TODO: err was causing a crazy serialization error
+    // posibly because rail api is returning a malformed
+    // response.statusText. Just `put` a generic error for now
+    // yield put(receiveAuthError(err));
+    yield put(receiveAuthError('auth error'));
   }
 }
 
