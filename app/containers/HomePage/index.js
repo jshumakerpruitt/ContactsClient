@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { Flex } from 'reflexbox';
+import { Button } from 'rebass';
 
 // TODO: consider moving auth DUCKS to HomePage
 import * as actions from './actions';
@@ -39,6 +40,16 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     requestContacts: React.PropTypes.func,
   }
 
+  constructor(props) {
+    super(props);
+    this.state = { formHidden: true };
+    this.toggleForm = this.toggleForm.bind(this);
+  }
+
+  toggleForm() {
+    this.setState({ formHidden: !this.state.formHidden });
+  }
+
   render() {
     const { token } = this.props;
 
@@ -53,20 +64,32 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       >
         {token ?
           <Flex
+            col={12}
             flexAuto
             flexColumn
             align="center"
           >
-            <ContactForm
-              submitForm={this.props.submitContact}
-            />
+            <Button
+              onClick={this.toggleForm}
+              style={styles.submit}
+              type="submit"
+              className="submitButton"
+              backgroundColor="primary"
+              color="white"
+              inverted
+              rounded
+            >
+              {this.state.formHidden ? '+ Add Contact' : 'x Close'}
+            </Button>
+            { this.state.formHidden ? '' :
+              <ContactForm submitForm={this.props.submitContact} />}
             <ContactGrid requestContacts={this.props.requestContacts} />
           </Flex>
-         :
-           <AuthBox
-             submitSignUp={this.props.submitSignUp}
-             submitAuth={this.props.submitAuth}
-           />}
+        :
+          <AuthBox
+            submitSignUp={this.props.submitSignUp}
+            submitAuth={this.props.submitAuth}
+          />}
       </Flex>
     );
   }

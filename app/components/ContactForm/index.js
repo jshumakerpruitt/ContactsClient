@@ -63,6 +63,7 @@ export const ContactForm = ({ handleSubmit, submitForm }) => (
         component={birthdayField}
       />
       <Button
+        style={styles.submit}
         type="submit"
         className="submitButton"
         backgroundColor="primary"

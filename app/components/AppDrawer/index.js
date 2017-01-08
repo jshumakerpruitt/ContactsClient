@@ -18,6 +18,7 @@ const AppDrawer = ({ open, toggleDrawer }) => (
     open={open}
     backgroundColor="#0079bf"
     p={0}
+    style={styles.container}
   >
     <Flex
       flexColumn
@@ -96,6 +97,9 @@ const styles = {
   row: {
     borderBottom: '2px solid #c0c0c0',
     height: '48px',
+  },
+  container: {
+    border: '2px solid #c0c0c0',
   },
 };
 

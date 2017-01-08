@@ -25,6 +25,7 @@ describe('<HomePage />', () => {
 
   it('should render a ContactForm if logged in', () => {
     const wrapper = shallow(<HomePage token={'111'} />);
+    wrapper.setState({ formHidden: false });
     expect(wrapper.find(ContactForm).length).toEqual(1);
   });
 });

@@ -1,8 +1,6 @@
 import React from 'react';
 import expect from 'expect';
 import { shallow } from 'enzyme';
-import { Flex } from 'reflexbox';
-import { Text } from 'rebass';
 
 import { ContactGrid } from '../index';
 import ContactCard from 'components/ContactCard';
@@ -15,14 +13,11 @@ describe('<ContactGrid />', () => {
     emptyWrapper = getShallow();
   });
 
-  it('should not render ContactCards if contacts empty', () => {
-    expect(emptyWrapper.containsMatchingElement(<ContactCard />))
-      .toEqual(false);
-  });
-
-  it('should render a message if contacts empty', () => {
-    expect(emptyWrapper.containsMatchingElement(<Flex><Text>No Contacts Found.</Text></Flex>))
-    .toEqual(true);
+  it('should render an Overlay', () => {
+    expect(
+      emptyWrapper
+        .childAt(0).name()
+    ).toEqual('Overlay');
   });
 
   it('should render ContactCards if it has contacts', () => {
@@ -31,5 +26,9 @@ describe('<ContactGrid />', () => {
   });
 });
 
-const getShallow = (props = { contacts: [] }) =>
+const getShallow = (props = {
+  contacts: [],
+  requestContacts: () => {},
+}) =>
   shallow(<ContactGrid {...props} />);
+
