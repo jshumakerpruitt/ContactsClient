@@ -3,8 +3,8 @@ import editContactsPageReducer from '../reducer';
 import { fromJS } from 'immutable';
 
 import {
-  receiveContact,
-} from 'containers/HomePage/actions';
+  receiveContactForUpdate,
+} from '../actions';
 
 describe('editContactsPageReducer', () => {
   let state;
@@ -18,10 +18,10 @@ describe('editContactsPageReducer', () => {
     expect(editContactsPageReducer(undefined, {})).toEqual(state);
   });
 
-  it('handles receiveContact', () => {
+  it('handles receiveContactForUpdate', () => {
     const fixture = { id: 1, name: 'alice' };
     const expectedState = state.set('contact', fromJS(fixture));
-    expect(editContactsPageReducer(state, receiveContact(fixture)))
+    expect(editContactsPageReducer(state, receiveContactForUpdate(fixture)))
                                .toEqual(expectedState);
   });
 });

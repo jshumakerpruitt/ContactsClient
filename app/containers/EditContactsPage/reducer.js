@@ -6,8 +6,8 @@
 
 import { fromJS } from 'immutable';
 import {
-  RECEIVE_CONTACT,
-} from 'containers/HomePage/constants';
+  RECEIVE_CONTACT_FOR_UPDATE,
+} from './constants';
 
 const initialState = fromJS({
   contact: null,
@@ -15,7 +15,7 @@ const initialState = fromJS({
 
 function editContactsPageReducer(state = initialState, action) {
   switch (action.type) {
-    case RECEIVE_CONTACT:
+    case RECEIVE_CONTACT_FOR_UPDATE:
       return state.set('contact', fromJS(action.contact));
     default:
       return state;

@@ -8,9 +8,6 @@ import {
   cancel,
 } from 'redux-saga/effects';
 
-
-import { reset } from 'redux-form/immutable';
-
 import { LOCATION_CHANGE, push } from 'react-router-redux';
 
 import {
@@ -24,11 +21,9 @@ import {
 
 import {
   updateContactError,
+  updateContactSuccess,
+  receiveContactForUpdate,
 } from './actions';
-
-import {
-  receiveContact,
-} from 'containers/HomePage/actions';
 
 import {
   logOut,
@@ -53,8 +48,7 @@ export function* patchContact(action) {
     const updateResponse = yield call(request,
                                         requestURL,
                                         options);
-    yield put((updateResponse));
-    yield put(reset('contact'));
+    yield put(updateContactSuccess(updateResponse));
   } catch (err) {
     // trash token anytime you get 401
     // otherwise client thinks auth is valid
@@ -90,9 +84,8 @@ export function* getContact(action) {
   const options = getOptions({ token });
 
   try {
-    const contactResponse =
-      yield call(request, requestURL, options);
-    yield put(receiveContact(contactResponse));
+    const contactResponse = yield call(request, requestURL, options);
+    yield put(receiveContactForUpdate(contactResponse));
   } catch (err) {
     // trash token anytime you get 401
     // otherwise client thinks auth is valid

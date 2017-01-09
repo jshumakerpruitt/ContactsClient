@@ -58,7 +58,7 @@ export const ContactForm = ({ handleSubmit, submitForm, title = 'Submit' }) => (
         component={organizationField}
       />
       <Field
-        name="birthday"
+        name="birthdate"
         type="text"
         component={birthdayField}
       />

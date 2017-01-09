@@ -6,7 +6,7 @@
 
 import {
   REQUEST_CONTACT,
-  RECEIVE_UPDATED_CONTACT,
+  RECEIVE_CONTACT_FOR_UPDATE,
   UPDATE_CONTACT,
   UPDATE_CONTACT_SUCCESS,
   UPDATE_CONTACT_ERROR,
@@ -32,7 +32,7 @@ export const updateContactError = (error) => ({
   error,
 });
 
-export const receiveUpdatedContact = (contact) => ({
-  type: RECEIVE_UPDATED_CONTACT,
+export const receiveContactForUpdate = (contact) => ({
+  type: RECEIVE_CONTACT_FOR_UPDATE,
   contact,
 });
