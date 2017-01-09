@@ -23,3 +23,5 @@ export const RECEIVE_SIGNUP_ERROR = 'contacts/App/RECEIVE_SIGNUP_ERROR';
 export const DEFAULT_LOCALE = 'en';
 
 export const CLEAR_ERRORS = 'contacts/App/CLEAR_ERRORS';
+export const RECEIVE_FLASH = 'contacts/App/RECEIVE_FLASH';
+export const CLEAR_FLASH = 'contacts/App/CLEAR_FLASH';

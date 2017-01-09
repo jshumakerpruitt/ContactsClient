@@ -37,9 +37,15 @@ const selectAuthError = () => createSelector(
   (globalState) => globalState.get('authError')
 );
 
+const selectFlash = () => createSelector(
+  selectGlobal(),
+  (globalState) => globalState.get('flash')
+);
+
 export {
   selectGlobal,
   selectErrors,
+  selectFlash,
   selectLocationState,
   selectToken,
   selectAuthError,

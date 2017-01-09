@@ -4,6 +4,7 @@ import { createStructuredSelector } from 'reselect';
 
 import {
   selectErrors,
+  selectFlash,
   selectToken,
   selectAuthError,
 } from 'containers/App/selectors';
@@ -22,6 +23,8 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
     children: React.PropTypes.node,
     logOut: React.PropTypes.func,
     token: React.PropTypes.string,
+    clearErrors: React.PropTypes.func,
+    clearFlash: React.PropTypes.func,
   };
 
   constructor(props) {
@@ -29,17 +32,22 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
     this.state = { drawerOpen: false };
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.notify = null;
-      this.props.clearErrors()
+    this.props.clearErrors();
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('receiveProps')
     if (nextProps.errors) {
       this.notify.addNotification((({
         message: JSON.stringify(nextProps.errors),
         level: 'error',
       })));
-      this.props.clearErrors()
+      this.props.clearErrors();
+    } else if (nextProps.flash) {
+      this.notify.addNotification((({
+        message: nextProps.flash,
+        level: 'success',
+      })));
+      this.props.clearFlash();
     }
   }
 
@@ -48,7 +56,6 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
   }
 
   render() {
-    console.log(this.props.errors)
     return (
       <Flex
         style={styles.home}
@@ -100,6 +107,7 @@ const mapStateToProps = createStructuredSelector({
   token: selectToken(),
   authError: selectAuthError(),
   errors: selectErrors(),
+  flash: selectFlash(),
 });
 
 export default connect(mapStateToProps, actions)(App);

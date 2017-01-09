@@ -8,26 +8,26 @@ import React from 'react';
 
 
 describe('<App />', () => {
-  it('should render the header', () => {
-    const renderedComponent = shallow(
-      <App />
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(
+      <App clearErrors={() => {}} />
     );
-    expect(renderedComponent.find(Header).length)
+  });
+  it('should render the header', () => {
+    expect(wrapper.find(Header).length)
       .toEqual(1);
   });
 
   it('should render the Drawer', () => {
-    const renderedComponent = shallow(
-      <App />
-    );
-    expect(renderedComponent.find(AppDrawer).length)
+    expect(wrapper.find(AppDrawer).length)
       .toEqual(1);
   });
 
   it('should render its children', () => {
     const children = (<h1>Test</h1>);
     const renderedComponent = shallow(
-      <App>
+      <App clearErrors={() => {}}>
         {children}
       </App>
     );

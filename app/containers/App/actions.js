@@ -21,6 +21,8 @@ import {
   RECEIVE_AUTH_ERROR,
   LOG_OUT,
   CLEAR_ERRORS,
+  CLEAR_FLASH,
+  RECEIVE_FLASH,
   SUBMIT_SIGNUP,
   RECEIVE_SIGNUP_ERROR,
 } from './constants';
@@ -67,3 +69,12 @@ export const clearErrors = () => ({
   type: CLEAR_ERRORS,
 });
 
+export const receiveFlash = (flash) => ({
+  type: RECEIVE_FLASH,
+  flash,
+});
+
+
+export const clearFlash = () => ({
+  type: CLEAR_FLASH,
+});

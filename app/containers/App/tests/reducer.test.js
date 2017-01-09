@@ -16,6 +16,8 @@ describe('appReducer', () => {
   beforeEach(() => {
     state = fromJS({
       token: null,
+      errors: null,
+      flash: null,
       authError: null,
       signUpError: null,
     });
@@ -36,21 +38,23 @@ describe('appReducer', () => {
 
   it('should handle receiveAuthError', () => {
     const fixture = 'myerror';
-    const expectedResult = state.set('authError', fixture);
+    const expectedResult = state.set('authError', fixture)
+                                .set('errors', fixture);
     expect(appReducer(state, receiveAuthError(fixture)))
       .toEqual(expectedResult);
   });
 
   it('should handle receiveSignUpError', () => {
     const fixture = 'myerror';
-    const expectedResult = state.set('signUpError', fixture);
+    const expectedResult = state.set('signUpError', fixture)
+                                .set('errors', fixture);
     expect(appReducer(state, receiveSignUpError(fixture)))
       .toEqual(expectedResult);
   });
 
   it('should handle logOut', () => {
     const loggedInState = state.set('token', 'mytoken');
-    const expectedResult = state.set('token', null);
+    const expectedResult = fromJS({});
     expect(appReducer(loggedInState, logOut()))
       .toEqual(expectedResult);
   });

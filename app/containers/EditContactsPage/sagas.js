@@ -21,12 +21,13 @@ import {
 
 import {
   updateContactError,
-  updateContactSuccess,
+  // updateContactSuccess,
   receiveContactForUpdate,
 } from './actions';
 
 import {
   logOut,
+  receiveFlash,
 } from 'containers/App/actions';
 
 import request, { getOptions } from 'utils/request';
@@ -45,19 +46,17 @@ export function* patchContact(action) {
   const options = getOptions({ token, body, method: 'PUT' });
 
   try {
-    const updateResponse = yield call(request,
-                                        requestURL,
-                                        options);
-    yield put(updateContactSuccess(updateResponse));
+    yield call(request, requestURL, options);
+    yield put(receiveFlash('Update Successful'));
   } catch (err) {
     // trash token anytime you get 401
     // otherwise client thinks auth is valid
     // but server does not
     if (err.response && err.response.status === 401) {
       yield put(logOut());
-      yield put(push('/'))
+      yield put(push('/'));
     }
-    yield put(updateContactError(err));
+    yield put(updateContactError('Unable to update contact. Email is required. Email must be unique.'));
   }
 }
 

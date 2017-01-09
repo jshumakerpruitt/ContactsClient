@@ -32,13 +32,14 @@ import {
   receiveToken,
   receiveAuthError,
   receiveSignUpError,
+  receiveFlash,
 } from 'containers/App/actions';
 
 import {
   receiveContacts,
   receiveContact,
   receiveContactsError,
-  createContactSuccess,
+  // createContactSuccess,
   createContactError,
   deleteContactSuccess,
   deleteContactError,
@@ -72,7 +73,7 @@ export function* postAuth(action) {
     // TODO: err was causing a crazy serialization error
     // posibly because rail api is returning a malformed
     // response.statusText. Just `put` a generic error for now
-    //yield put(receiveAuthError(err));
+    // yield put(receiveAuthError(err));
     yield put(receiveAuthError('Unable to Authenticate'));
   }
 }
@@ -116,7 +117,7 @@ export function* postSignUp(action) {
                                       options);
     yield put(receiveToken(signUpResponse.jwt));
   } catch (err) {
-    yield put(receiveSignUpError('Unable to Create Account'));
+    yield put(receiveSignUpError('Unable to create account. Email is required. Email must be unique.'));
   }
 }
 
@@ -151,7 +152,7 @@ export function* postContact(action) {
     const creationResponse = yield call(request,
                                         requestURL,
                                         options);
-    yield put(createContactSuccess());
+    yield put(receiveFlash('Contact Created'));
     yield put(receiveContact(creationResponse));
     yield put(reset('contact'));
   } catch (err) {
@@ -161,7 +162,7 @@ export function* postContact(action) {
     if (err.response.status === 401) {
       yield put(logOut());
     }
-    yield put(createContactError(err.response.statusText));
+    yield put(createContactError('Unable to create contact. Email is required. Email must be unique'));
   }
 }
 
@@ -232,7 +233,7 @@ export function* deleteContact(action) {
 
   try {
     yield call(request, requestURL, options);
-
+    yield put(receiveFlash('Contact Deleted'));
     yield put(deleteContactSuccess(action.id));
   } catch (err) {
     // trash token anytime you get 401

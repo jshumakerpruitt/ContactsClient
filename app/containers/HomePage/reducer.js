@@ -18,7 +18,7 @@ import {
   DELETE_CONTACT_SUCCESS,
 } from './constants';
 
-import { LOG_OUT } from 'containers/App/Constants'
+import { LOG_OUT } from 'containers/App/constants';
 
 import { fromJS } from 'immutable';
 
