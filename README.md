@@ -1,3 +1,6 @@
 # Contacts Client
-##Todo: show spinner/error for logins
-##remove error state on success
+# instructions:
+- git clone
+- `yarn`
+- npm run start
+- npm run test:watch 
