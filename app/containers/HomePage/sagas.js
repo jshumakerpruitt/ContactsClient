@@ -24,6 +24,7 @@ import {
 import {
   SUBMIT_CONTACT,
   REQUEST_CONTACTS,
+  DELETE_CONTACT,
 } from './constants';
 
 import {
@@ -39,6 +40,8 @@ import {
   receiveContactsError,
   createContactSuccess,
   createContactError,
+  deleteContactSuccess,
+  deleteContactError,
 } from './actions';
 
 import request, { getOptions } from 'utils/request';
@@ -216,6 +219,47 @@ export function* createContactData() {
   yield cancel(watcher);
 }
 
+/** DELETE contact sagas
+ *
+ * request/response handler
+ */
+export function* deleteContact(action) {
+  const id = action.id;
+  const requestURL = `${CONTACTS_URL}/${id}`;
+
+  const token = yield select(selectToken());
+  const options = getOptions({ token, method: 'DELETE' });
+
+  try {
+    yield call(request, requestURL, options);
+
+    yield put(deleteContactSuccess(action.id));
+  } catch (err) {
+    // trash token anytime you get 401
+    // otherwise client thinks auth is valid
+    // but server does not
+    if (err.response && err.response.status === 401) {
+      yield put(logOut());
+    }
+    yield put(deleteContactError(err));
+  }
+}
+
+// watcher: listens for DELETE_CONTACT action
+export function* deleteContactWatcher() {
+  yield fork(takeLatest, DELETE_CONTACT, deleteContact);
+}
+
+// Root contact creation saga
+export function* deleteContactData() {
+  // Fork watcher so we can continue execution
+  const watcher = yield fork(deleteContactWatcher);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
 
 // Bootstrap
 export default [
@@ -223,4 +267,5 @@ export default [
   signUpData,
   createContactData,
   fetchContactsData,
+  deleteContactData,
 ];

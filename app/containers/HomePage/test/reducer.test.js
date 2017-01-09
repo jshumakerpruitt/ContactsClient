@@ -2,10 +2,14 @@ import expect from 'expect';
 import homePageReducer from '../reducer';
 
 import {
-  receiveContacts,
   receiveContact,
+
+  receiveContacts,
   receiveContactsError,
   createContactError,
+
+//  deleteContactError,
+  deleteContactSuccess,
 } from '../actions';
 
 import { fromJS } from 'immutable';
@@ -45,8 +49,6 @@ describe('homePageReducer', () => {
     const fixture = { id: 1, name: 'joe', email: 'foo@bar.com' };
     const expectedResult = state.set('contactIds', fromJS([1]))
                                 .set('contacts', fromJS({ 1: fixture }));
-
-
     expect(homePageReducer(state, receiveContact(fixture)))
       .toEqual(expectedResult);
   });
@@ -62,6 +64,15 @@ describe('homePageReducer', () => {
     const fixture = 'myerror';
     const expectedResult = state.setIn(['errors', 'contactCreationError'], fixture);
     expect(homePageReducer(state, createContactError(fixture)))
+      .toEqual(expectedResult);
+  });
+
+  it('should handle deleteContactSuccess', () => {
+    const stateBefore = state.set('contactIds', fromJS([1]))
+    .set('contacts', fromJS({ 1: { id: 1, name: 'alice' } }));
+    const fixture = 1;
+    const expectedResult = state;
+    expect(homePageReducer(stateBefore, deleteContactSuccess(fixture)))
       .toEqual(expectedResult);
   });
 });

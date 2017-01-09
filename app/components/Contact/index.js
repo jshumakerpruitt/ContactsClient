@@ -16,7 +16,8 @@ import {
 import Icon from 'react-geomicons';
 
 
-function Contact({ contact = {}, onDismiss }) {
+function Contact({ contact = {}, onDismiss, onDelete }) {
+  const onDeleteClick = () => { onDelete(contact.id); onDismiss(); };
   const gravatarUrl =
     `https://www.gravatar.com/avatar/${contact.gravatar || 'blank'}?s=260`;
   return (
@@ -91,6 +92,7 @@ function Contact({ contact = {}, onDismiss }) {
               <Button
                 theme="error"
                 className="delete-button"
+                onClick={onDeleteClick}
               >
                 Delete
               </Button>
@@ -105,6 +107,7 @@ function Contact({ contact = {}, onDismiss }) {
 Contact.propTypes = {
   contact: React.PropTypes.object,
   onDismiss: React.PropTypes.func,
+  onDelete: React.PropTypes.func,
 };
 
 const styles = {

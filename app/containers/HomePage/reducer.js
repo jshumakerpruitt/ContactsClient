@@ -15,6 +15,7 @@ import {
   RECEIVE_CONTACT,
   RECEIVE_CONTACTS_ERROR,
   CREATE_CONTACT_ERROR,
+  DELETE_CONTACT_SUCCESS,
 } from './constants';
 
 import { fromJS } from 'immutable';
@@ -43,6 +44,8 @@ const contacts = (
         String(action.contact.id),
         fromJS(action.contact)
       );
+    case DELETE_CONTACT_SUCCESS:
+      return state.delete(String(action.id));
     default:
       return state;
   }
@@ -59,6 +62,8 @@ const contactIds = (
       return state.unshift(
         action.contact.id
       );
+    case DELETE_CONTACT_SUCCESS:
+      return state.filter((id) => id !== action.id);
     default:
       return state;
   }

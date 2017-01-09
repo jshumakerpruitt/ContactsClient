@@ -1,23 +1,35 @@
 import expect from 'expect';
 
 import {
+  RECEIVE_CONTACT,
+
   REQUEST_CONTACTS,
   RECEIVE_CONTACTS,
-  RECEIVE_CONTACT,
   RECEIVE_CONTACTS_ERROR,
+
   SUBMIT_CONTACT,
   CREATE_CONTACT_SUCCESS,
   CREATE_CONTACT_ERROR,
+
+  DELETE_CONTACT,
+  DELETE_CONTACT_SUCCESS,
+  DELETE_CONTACT_ERROR,
 } from '../constants';
 
 import {
+  receiveContact,
+
   requestContacts,
   receiveContacts,
-  receiveContact,
   receiveContactsError,
+
   submitContact,
   createContactSuccess,
   createContactError,
+
+  deleteContact,
+  deleteContactSuccess,
+  deleteContactError,
 } from '../actions';
 
 describe('HomePage Actions', () => {
@@ -110,6 +122,41 @@ describe('HomePage Actions', () => {
       };
 
       expect(createContactError(contactCreationError)).toEqual(expectedResult);
+    });
+  });
+
+  describe('deleteContact', () => {
+    it('it should have the correct type and id', () => {
+      const fixture = 1;
+      const expectedResult = {
+        type: DELETE_CONTACT,
+        id: fixture,
+      };
+
+      expect(deleteContact(fixture)).toEqual(expectedResult);
+    });
+  });
+
+  describe('deleteContactSuccess', () => {
+    it('should return the correct type and id', () => {
+      const fixture = 1;
+      const expectedResult = {
+        type: DELETE_CONTACT_SUCCESS,
+        id: fixture,
+      };
+
+      expect(deleteContactSuccess(fixture)).toEqual(expectedResult);
+    });
+  });
+  describe('deleteContactError', () => {
+    it('should return the correct type and error', () => {
+      const fixture = 'myerror';
+      const expectedResult = {
+        type: DELETE_CONTACT_ERROR,
+        contactDeletionError: fixture,
+      };
+
+      expect(deleteContactError(fixture)).toEqual(expectedResult);
     });
   });
 });

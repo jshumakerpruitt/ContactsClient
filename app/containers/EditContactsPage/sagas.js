@@ -32,7 +32,7 @@ import {
 import request, { getOptions } from 'utils/request';
 import { selectToken } from 'containers/App/selectors';
 
-/** contact update sagas
+/** UPDATE contact sagas
  *
  */
 // contact update request/response handler

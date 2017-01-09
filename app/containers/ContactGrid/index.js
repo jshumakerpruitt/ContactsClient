@@ -6,6 +6,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+
+import { deleteContact } from 'containers/HomePage/actions';
+
 import {
   selectContacts,
   selectContactIds,
@@ -26,12 +29,14 @@ export class ContactGrid extends React.Component { // eslint-disable-line react/
     requestContacts: React.PropTypes.func,
     contacts: React.PropTypes.object,
     contactIds: React.PropTypes.array,
+    deleteContact: React.PropTypes.func,
   }
   constructor(props) {
     super(props);
     this.state = { overlay: false, idx: 1 };
     this.openOverlay = this.openOverlay.bind(this);
     this.closeOverlay = this.closeOverlay.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -44,6 +49,10 @@ export class ContactGrid extends React.Component { // eslint-disable-line react/
 
   closeOverlay() {
     this.setState({ overlay: false });
+  }
+
+  handleDelete() {
+    this.props.deleteContact(this.state.idx);
   }
 
   render() {
@@ -63,6 +72,7 @@ export class ContactGrid extends React.Component { // eslint-disable-line react/
           <Contact
             contact={contacts[this.state.idx]}
             onDismiss={this.closeOverlay}
+            onDelete={this.props.deleteContact}
           />
         </Overlay>
         {contacts.length === 0 ? <Text>No Contacts Found.</Text> : ''}
@@ -86,4 +96,4 @@ const mapStateToProps = createStructuredSelector({
   contactIds: selectContactIds(),
 });
 
-export default connect(mapStateToProps)(ContactGrid);
+export default connect(mapStateToProps, { deleteContact })(ContactGrid);

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import {
+  selectErrors,
   selectToken,
   selectAuthError,
 } from 'containers/App/selectors';
@@ -10,24 +11,33 @@ import {
 import { Flex } from 'reflexbox';
 import {
 } from 'rebass';
+import NotificationSystem from 'react-notification-system';
 import AppDrawer from 'components/AppDrawer';
 
 import Header from 'components/Header';
 import * as actions from './actions';
 
 export class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
   static propTypes = {
     children: React.PropTypes.node,
     logOut: React.PropTypes.func,
     token: React.PropTypes.string,
   };
 
-
   constructor(props) {
     super(props);
     this.state = { drawerOpen: false };
     this.toggleDrawer = this.toggleDrawer.bind(this);
+    this.notify = null;
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.notify.addNotification({
+        message: 'Notification message',
+        level: 'success',
+      });
+    }, 1000);
   }
 
   toggleDrawer() {
@@ -40,6 +50,11 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
         style={styles.home}
         flexColumn
       >
+        <NotificationSystem
+          ref={(notifySystem) => {
+            this.notify = notifySystem;
+          }}
+        />
         <AppDrawer
           open={this.state.drawerOpen}
           toggleDrawer={this.toggleDrawer}
@@ -76,9 +91,11 @@ const styles = {
     width: '100%',
   },
 };
+
 const mapStateToProps = createStructuredSelector({
   token: selectToken(),
   authError: selectAuthError(),
+  errors: selectErrors(),
 });
 
 export default connect(mapStateToProps, actions)(App);

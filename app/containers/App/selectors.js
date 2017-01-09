@@ -27,6 +27,11 @@ const selectToken = () => createSelector(
   (globalState) => globalState.get('token')
 );
 
+const selectErrors = () => createSelector(
+  selectGlobal(),
+  (globalState) => globalState.get('errors')
+);
+
 const selectAuthError = () => createSelector(
   selectGlobal(),
   (globalState) => globalState.get('authError')
@@ -34,6 +39,7 @@ const selectAuthError = () => createSelector(
 
 export {
   selectGlobal,
+  selectErrors,
   selectLocationState,
   selectToken,
   selectAuthError,
