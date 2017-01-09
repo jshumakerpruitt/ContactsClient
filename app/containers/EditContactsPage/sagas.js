@@ -55,6 +55,7 @@ export function* patchContact(action) {
     // but server does not
     if (err.response && err.response.status === 401) {
       yield put(logOut());
+      yield put(push('/'))
     }
     yield put(updateContactError(err));
   }

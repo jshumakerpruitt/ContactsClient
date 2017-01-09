@@ -72,8 +72,8 @@ export function* postAuth(action) {
     // TODO: err was causing a crazy serialization error
     // posibly because rail api is returning a malformed
     // response.statusText. Just `put` a generic error for now
-        // yield put(receiveAuthError(err));
-    yield put(receiveAuthError('auth error'));
+    //yield put(receiveAuthError(err));
+    yield put(receiveAuthError('Unable to Authenticate'));
   }
 }
 
@@ -116,7 +116,7 @@ export function* postSignUp(action) {
                                       options);
     yield put(receiveToken(signUpResponse.jwt));
   } catch (err) {
-    yield put(receiveSignUpError(err));
+    yield put(receiveSignUpError('Unable to Create Account'));
   }
 }
 
@@ -161,7 +161,7 @@ export function* postContact(action) {
     if (err.response.status === 401) {
       yield put(logOut());
     }
-    yield put(createContactError(err));
+    yield put(createContactError(err.response.statusText));
   }
 }
 

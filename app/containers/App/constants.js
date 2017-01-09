@@ -21,3 +21,5 @@ export const LOG_OUT = 'contacts/App/LOG_OUT';
 export const SUBMIT_SIGNUP = 'contacts/App/SUBMIT_SIGNUP';
 export const RECEIVE_SIGNUP_ERROR = 'contacts/App/RECEIVE_SIGNUP_ERROR';
 export const DEFAULT_LOCALE = 'en';
+
+export const CLEAR_ERRORS = 'contacts/App/CLEAR_ERRORS';

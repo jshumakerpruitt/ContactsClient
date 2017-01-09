@@ -29,15 +29,18 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
     this.state = { drawerOpen: false };
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.notify = null;
+      this.props.clearErrors()
   }
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.notify.addNotification({
-        message: 'Notification message',
-        level: 'success',
-      });
-    }, 1000);
+  componentWillReceiveProps(nextProps) {
+    console.log('receiveProps')
+    if (nextProps.errors) {
+      this.notify.addNotification((({
+        message: JSON.stringify(nextProps.errors),
+        level: 'error',
+      })));
+      this.props.clearErrors()
+    }
   }
 
   toggleDrawer() {
@@ -45,6 +48,7 @@ export class App extends React.Component { // eslint-disable-line react/prefer-s
   }
 
   render() {
+    console.log(this.props.errors)
     return (
       <Flex
         style={styles.home}

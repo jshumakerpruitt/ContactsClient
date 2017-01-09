@@ -36,7 +36,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   constructor(props) {
     super(props);
-    this.state = { formHidden: true };
+    this.state = { formHidden: false };
     this.toggleForm = this.toggleForm.bind(this);
   }
 
@@ -75,7 +75,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             >
               {this.state.formHidden ? '+ Add Contact' : 'x Close'}
             </Button>
-            { this.state.formHidden ? '' :
+            { this.state.formHidden ? <Flex m={2}/> :
               <ContactForm
                 title="Create Contact"
                 submitForm={this.props.submitContact}

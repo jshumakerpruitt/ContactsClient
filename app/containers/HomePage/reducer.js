@@ -18,6 +18,8 @@ import {
   DELETE_CONTACT_SUCCESS,
 } from './constants';
 
+import { LOG_OUT } from 'containers/App/Constants'
+
 import { fromJS } from 'immutable';
 
 /* The initial state of the App
@@ -44,6 +46,8 @@ const contacts = (
         String(action.contact.id),
         fromJS(action.contact)
       );
+    case LOG_OUT:
+      return fromJS({});
     case DELETE_CONTACT_SUCCESS:
       return state.delete(String(action.id));
     default:
@@ -56,6 +60,8 @@ const contactIds = (
   action
 ) => {
   switch (action.type) {
+    case LOG_OUT:
+      return fromJS([]);
     case RECEIVE_CONTACTS:
       return fromJS(action.ids);
     case RECEIVE_CONTACT:

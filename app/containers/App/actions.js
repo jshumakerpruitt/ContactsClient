@@ -20,6 +20,7 @@ import {
   RECEIVE_TOKEN,
   RECEIVE_AUTH_ERROR,
   LOG_OUT,
+  CLEAR_ERRORS,
   SUBMIT_SIGNUP,
   RECEIVE_SIGNUP_ERROR,
 } from './constants';
@@ -61,3 +62,8 @@ export const receiveSignUpError = (signUpError) => ({
   type: RECEIVE_SIGNUP_ERROR,
   signUpError,
 });
+
+export const clearErrors = () => ({
+  type: CLEAR_ERRORS,
+});
+

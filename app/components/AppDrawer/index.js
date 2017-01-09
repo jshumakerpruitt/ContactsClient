@@ -53,7 +53,7 @@ const AppDrawer = ({
         <Button
           style={styles.menuButton}
         >
-          My Account
+          My Account(disabled)
         </Button>
       </Flex>
       <Flex
@@ -64,7 +64,7 @@ const AppDrawer = ({
         <Button
           style={styles.menuButton}
         >
-          Settings
+          Settings(disabled)
         </Button>
       </Flex>
       <Flex
