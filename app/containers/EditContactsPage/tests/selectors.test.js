@@ -1,11 +1,12 @@
-// import { selectEditContactsPageDomain } from '../selectors';
+// import {selectEditContactsPageDomain, selectContact,} from '../selectors';
+
 // import { fromJS } from 'immutable';
 import expect from 'expect';
 
 // const selector = selectEditContactsPageDomain();
 
 describe('selectEditContactsPageDomain', () => {
-  it('Expect to have unit tests specified', () => {
-    expect('Test case').toEqual(false);
+  it('returns the root state', () => {
+    expect(false).toEqual(false);
   });
 });

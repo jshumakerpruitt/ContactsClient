@@ -49,7 +49,7 @@ describe('<ContactForm />', () => {
   });
 
   it('should have an birthday Field', () => {
-    expect(wrapper.find('[name="birthday"]').name()).toEqual('Field');
+    expect(wrapper.find('[name="birthdate"]').name()).toEqual('Field');
   });
 
 

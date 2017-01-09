@@ -21,14 +21,9 @@ import {
   selectAuthError,
 } from 'containers/App/selectors';
 
-import {
-} from './selectors';
-
-
 import AuthBox from 'components/AuthBox';
 import ContactGrid from 'containers/ContactGrid';
 import ContactForm from 'components/ContactForm';
-
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
