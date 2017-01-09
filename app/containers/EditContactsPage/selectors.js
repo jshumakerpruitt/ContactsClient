@@ -19,7 +19,12 @@ const selectEditContactsPage = () => createSelector(
   (substate) => substate.toJS()
 );
 
+const selectContact = () => createSelector(
+  selectEditContactsPage(),
+  (substate) => substate.contact,
+);
 export default selectEditContactsPage;
 export {
   selectEditContactsPageDomain,
+  selectContact,
 };

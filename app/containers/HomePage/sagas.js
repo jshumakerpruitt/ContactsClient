@@ -27,6 +27,7 @@ import {
 } from './constants';
 
 import {
+  logOut,
   receiveToken,
   receiveAuthError,
   receiveSignUpError,
@@ -68,7 +69,7 @@ export function* postAuth(action) {
     // TODO: err was causing a crazy serialization error
     // posibly because rail api is returning a malformed
     // response.statusText. Just `put` a generic error for now
-    // yield put(receiveAuthError(err));
+        // yield put(receiveAuthError(err));
     yield put(receiveAuthError('auth error'));
   }
 }
@@ -151,6 +152,12 @@ export function* postContact(action) {
     yield put(receiveContact(creationResponse));
     yield put(reset('contact'));
   } catch (err) {
+    // trash token anytime you get 401
+    // otherwise client thinks auth is valid
+    // but server does not
+    if (err.response.status === 401) {
+      yield put(logOut());
+    }
     yield put(createContactError(err));
   }
 }
@@ -174,6 +181,12 @@ export function* fetchContacts() {
     const contactsResponse = yield call(request, requestURL, options);
     yield put(receiveContacts(contactsResponse));
   } catch (err) {
+    // trash token anytime you get 401
+    // otherwise client thinks auth is valid
+    // but server does not
+    if (err.response.status === 401) {
+      yield put(logOut());
+    }
     yield put(receiveContactsError(err));
   }
 }
