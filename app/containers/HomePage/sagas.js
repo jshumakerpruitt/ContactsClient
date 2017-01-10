@@ -1,5 +1,5 @@
 // TODO: BOO no tests
-
+import { capitalize, keys, uniq } from 'lodash';
 import { takeLatest } from 'redux-saga';
 import {
   take,
@@ -156,13 +156,22 @@ export function* postContact(action) {
     yield put(receiveContact(creationResponse));
     yield put(reset('contact'));
   } catch (err) {
+    // read the errors from the API
+    // and render useful messages to user
+    const errorHash = yield err.response.json();
+    delete errorHash.user;
+    const messages = parseErrors(errorHash);
+
+    for (let i = 0; i < messages.length; i += 1) {
+      yield put(createContactError(messages[i]));
+    }
+
     // trash token anytime you get 401
     // otherwise client thinks auth is valid
     // but server does not
     if (err.response.status === 401) {
       yield put(logOut());
     }
-    yield put(createContactError('Unable to create contact. Email is required. Email must be unique'));
   }
 }
 
@@ -171,6 +180,15 @@ export function* postContactWatcher() {
   yield fork(takeLatest, SUBMIT_CONTACT, postContact);
 }
 
+// Root contact creation saga
+export function* createContactData() {
+  // Fork watcher so we can continue execution
+  const watcher = yield fork(postContactWatcher);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
 
 /*
  * fetchContacts sagas
@@ -204,16 +222,6 @@ export function* fetchContactsWatcher() {
 export function* fetchContactsData() {
   // Fork watcher so we can continue execution
   const watcher = yield fork(fetchContactsWatcher);
-
-  // Suspend execution until location changes
-  yield take(LOCATION_CHANGE);
-  yield cancel(watcher);
-}
-
-// Root contact creation saga
-export function* createContactData() {
-  // Fork watcher so we can continue execution
-  const watcher = yield fork(postContactWatcher);
 
   // Suspend execution until location changes
   yield take(LOCATION_CHANGE);
@@ -270,3 +278,13 @@ export default [
   fetchContactsData,
   deleteContactData,
 ];
+
+const createMessage = (key, errors) => {
+  const err = uniq(errors).join('; ');
+  return `${capitalize(key)}: ${err}`;
+};
+
+const parseErrors = (errorHash) => {
+  const errorKeys = keys(errorHash);
+  return errorKeys.map((k) => createMessage(k, errorHash[k]));
+};

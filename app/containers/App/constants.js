@@ -10,6 +10,7 @@
  */
 
 export const API_ROOT = 'http://localhost:3001';
+// export const API_ROOT = 'https://thawing-dawn-49937.herokuapp.com';
 export const AUTH_URL = `${API_ROOT}/user_token`;
 export const USERS_URL = `${API_ROOT}/users`;
 export const CONTACTS_URL = `${API_ROOT}/contacts`;
