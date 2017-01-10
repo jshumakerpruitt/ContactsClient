@@ -5,7 +5,6 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router';
 import { Flex } from 'reflexbox';
 import {
   Heading,
@@ -16,7 +15,12 @@ import {
 import Icon from 'react-geomicons';
 
 
-function Contact({ contact = {}, onDismiss, onDelete }) {
+function Contact({
+  contact = {},
+  onDismiss,
+  onDelete,
+  toggleEdit,
+}) {
   const onDeleteClick = () => { onDelete(contact.id); onDismiss(); };
   const gravatarUrl =
     `https://www.gravatar.com/avatar/${contact.gravatar || 'blank'}?s=260`;
@@ -79,14 +83,13 @@ function Contact({ contact = {}, onDismiss, onDelete }) {
           </Text>
           <Flex my={1}>
             <Flex >
-              <Link to={`/edit_contact/${contact.id}`}>
-                <Button
-                  theme="primary"
-                  className="edit-button"
-                >
+              <Button
+                onClick={toggleEdit}
+                theme="primary"
+                className="edit-button"
+              >
                 Edit
-                </Button>
-              </Link>
+              </Button>
             </Flex>
             <Flex mx={1}>
               <Button
@@ -108,6 +111,7 @@ Contact.propTypes = {
   contact: React.PropTypes.object,
   onDismiss: React.PropTypes.func,
   onDelete: React.PropTypes.func,
+  toggleEdit: React.PropTypes.func,
 };
 
 const styles = {

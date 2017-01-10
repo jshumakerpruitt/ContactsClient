@@ -24,7 +24,11 @@ const organizationField = textField({ label: 'organization', placeholder: 'organ
 const birthdayField = textField({ label: 'birthday', placeholder: 'birthday' });
 
 // named export of undecorated component for testing
-export const ContactForm = ({ handleSubmit, submitForm, title = 'Submit' }) => (
+export const ContactForm = ({
+  handleSubmit,
+  submitForm,
+  title = 'Submit',
+}) => (
   <Flex
     style={styles.form}
     col={12}
@@ -62,17 +66,22 @@ export const ContactForm = ({ handleSubmit, submitForm, title = 'Submit' }) => (
         type="text"
         component={birthdayField}
       />
-      <Button
-        style={styles.submit}
-        type="submit"
-        className="submitButton"
-        backgroundColor="primary"
-        color="white"
-        inverted
-        rounded
+      <Flex
+        justify="center"
+        pt={2}
       >
-        {title}
-      </Button>
+        <Button
+          style={styles.submit}
+          type="submit"
+          className="submitButton"
+          backgroundColor="primary"
+          color="white"
+          inverted
+          rounded
+        >
+          {title}
+        </Button>
+      </Flex>
     </form>
   </Flex>
 );
@@ -86,6 +95,8 @@ ContactForm.propTypes = {
 const styles = {
   form: {
     maxWidth: '350px',
+  },
+  submit: {
   },
 };
 

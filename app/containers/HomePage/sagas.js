@@ -1,6 +1,7 @@
 // TODO: BOO no tests
 import { capitalize, keys, uniq } from 'lodash';
 import { takeLatest } from 'redux-saga';
+
 import {
   take,
   call,
@@ -11,7 +12,7 @@ import {
 } from 'redux-saga/effects';
 import { reset } from 'redux-form/immutable';
 
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { push, LOCATION_CHANGE } from 'react-router-redux';
 
 import {
   SUBMIT_AUTH,
@@ -25,6 +26,7 @@ import {
   SUBMIT_CONTACT,
   REQUEST_CONTACTS,
   DELETE_CONTACT,
+  UPDATE_CONTACT,
 } from './constants';
 
 import {
@@ -38,6 +40,7 @@ import {
 import {
   receiveContacts,
   receiveContact,
+  receiveUpdatedContact,
   receiveContactsError,
   // createContactSuccess,
   createContactError,
@@ -270,6 +273,52 @@ export function* deleteContactData() {
 }
 
 
+/** UPDATE contact sagas
+ *
+ */
+// contact update request/response handler
+export function* patchContact(action) {
+  const contact = action.contact.toJS();
+  const requestURL = `${CONTACTS_URL}/${contact.id}`;
+
+  const token = yield select(selectToken());
+  const body = contact;
+  const options = getOptions({ token, body, method: 'PUT' });
+
+  try {
+    yield call(request, requestURL, options);
+    //
+    yield put(receiveFlash('Update Successful'));
+    yield put(receiveUpdatedContact(contact));
+  } catch (err) {
+    // trash token anytime you get 401
+    // otherwise client thinks auth is valid
+    // but server does not
+    if (err.response &&
+        err.response.status === 401) {
+      yield put(logOut());
+      yield put(push('/'));
+    }
+    yield put('Unable to update contact. Email is required. Email must be unique.');
+  }
+}
+
+// watcher: listens for UPDATE_CONTACT action
+export function* patchContactWatcher() {
+  yield fork(takeLatest, UPDATE_CONTACT, patchContact);
+}
+
+// Root contact creation saga
+export function* updateContactData() {
+  // Fork watcher so we can continue execution
+  const watcher = yield fork(patchContactWatcher);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
+}
+
+
 // Bootstrap
 export default [
   authData,
@@ -277,11 +326,12 @@ export default [
   createContactData,
   fetchContactsData,
   deleteContactData,
+  updateContactData,
 ];
 
-const createMessage = (key, errors) => {
+const createMessage = (field, errors) => {
   const err = uniq(errors).join('; ');
-  return `${capitalize(key)}: ${err}`;
+  return `${capitalize(field)}: ${err}`;
 };
 
 const parseErrors = (errorHash) => {

@@ -15,9 +15,13 @@ import {
 } from 'containers/App/constants';
 
 import {
-  UPDATE_CONTACT,
   REQUEST_CONTACT,
 } from './constants';
+
+import {
+  UPDATE_CONTACT,
+} from 'containers/HomePage/constants';
+
 
 import {
   updateContactError,
@@ -47,12 +51,14 @@ export function* patchContact(action) {
 
   try {
     yield call(request, requestURL, options);
+    //
     yield put(receiveFlash('Update Successful'));
   } catch (err) {
     // trash token anytime you get 401
     // otherwise client thinks auth is valid
     // but server does not
-    if (err.response && err.response.status === 401) {
+    if (err.response &&
+        err.response.status === 401) {
       yield put(logOut());
       yield put(push('/'));
     }

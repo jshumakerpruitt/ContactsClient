@@ -5,9 +5,16 @@
 
 import { normalize } from 'normalizr';
 import * as schema from 'utils/schema';
-
 import {
+  REQUEST_CONTACT,
+  RECEIVE_CONTACT_FOR_UPDATE,
+
+  UPDATE_CONTACT,
+  UPDATE_CONTACT_SUCCESS,
+  UPDATE_CONTACT_ERROR,
+
   RECEIVE_CONTACT,
+  RECEIVE_UPDATED_CONTACT,
 
   REQUEST_CONTACTS,
   RECEIVE_CONTACTS,
@@ -76,4 +83,34 @@ export const deleteContactSuccess = (id) => ({
 export const deleteContactError = (contactDeletionError) => ({
   type: DELETE_CONTACT_ERROR,
   contactDeletionError,
+});
+
+export const requestContact = (id) => ({
+  type: REQUEST_CONTACT,
+  id,
+});
+
+export const updateContact = (contact) => ({
+  type: UPDATE_CONTACT,
+  contact,
+});
+
+export const updateContactSuccess = (contact) => ({
+  type: UPDATE_CONTACT_SUCCESS,
+  contact,
+});
+
+export const updateContactError = (error) => ({
+  type: UPDATE_CONTACT_ERROR,
+  error,
+});
+
+export const receiveContactForUpdate = (contact) => ({
+  type: RECEIVE_CONTACT_FOR_UPDATE,
+  contact,
+});
+
+export const receiveUpdatedContact = (contact) => ({
+  type: RECEIVE_UPDATED_CONTACT,
+  contact,
 });

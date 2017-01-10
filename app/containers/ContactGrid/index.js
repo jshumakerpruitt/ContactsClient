@@ -7,7 +7,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { deleteContact } from 'containers/HomePage/actions';
+import * as actions from 'containers/HomePage/actions';
 
 import {
   selectContacts,
@@ -21,8 +21,8 @@ import {
 } from 'rebass';
 
 import ContactCard from 'components/ContactCard';
+import ContactEdit from 'components/ContactEdit';
 import Contact from 'components/Contact';
-
 
 export class ContactGrid extends React.Component { // eslint-disable-line react/prefer-stateless-function
   static propTypes = {
@@ -30,13 +30,16 @@ export class ContactGrid extends React.Component { // eslint-disable-line react/
     contacts: React.PropTypes.object,
     contactIds: React.PropTypes.array,
     deleteContact: React.PropTypes.func,
+    updateContact: React.PropTypes.func,
   }
+
   constructor(props) {
     super(props);
-    this.state = { overlay: false, idx: 1 };
+    this.state = { overlay: false, idx: 1, edit: true };
     this.openOverlay = this.openOverlay.bind(this);
     this.closeOverlay = this.closeOverlay.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
   }
 
   componentDidMount() {
@@ -55,6 +58,10 @@ export class ContactGrid extends React.Component { // eslint-disable-line react/
     this.props.deleteContact(this.state.idx);
   }
 
+  toggleEdit() {
+    this.setState({ edit: !this.state.edit });
+  }
+
   render() {
     const { contacts } = this.props;
 
@@ -69,11 +76,21 @@ export class ContactGrid extends React.Component { // eslint-disable-line react/
           onDismiss={this.closeOverlay}
           open={this.state.overlay}
         >
-          <Contact
-            contact={contacts[this.state.idx]}
-            onDismiss={this.closeOverlay}
-            onDelete={this.props.deleteContact}
-          />
+          {this.state.edit ?
+            <ContactEdit
+              title="Update Contact"
+              submitForm={this.props.updateContact}
+              contact={contacts[this.state.idx]}
+              toggleEdit={this.toggleEdit}
+              onDismiss={this.closeOverlay}
+            />
+          :
+            <Contact
+              contact={contacts[this.state.idx]}
+              onDismiss={this.closeOverlay}
+              toggleEdit={this.toggleEdit}
+              onDelete={this.props.deleteContact}
+            />}
         </Overlay>
         {contacts.length === 0 ? <Text>No Contacts Found.</Text> : ''}
         {this.props.contactIds.map((id) =>
@@ -96,4 +113,4 @@ const mapStateToProps = createStructuredSelector({
   contactIds: selectContactIds(),
 });
 
-export default connect(mapStateToProps, { deleteContact })(ContactGrid);
+export default connect(mapStateToProps, actions)(ContactGrid);

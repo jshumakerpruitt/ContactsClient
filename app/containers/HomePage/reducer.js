@@ -12,6 +12,7 @@
 import { combineReducers } from 'redux-immutable';
 import {
   RECEIVE_CONTACTS,
+  RECEIVE_UPDATED_CONTACT,
   RECEIVE_CONTACT,
   RECEIVE_CONTACTS_ERROR,
   CREATE_CONTACT_ERROR,
@@ -42,6 +43,11 @@ const contacts = (
     case RECEIVE_CONTACTS:
       return fromJS(action.contacts);
     case RECEIVE_CONTACT:
+      return state.set(
+        String(action.contact.id),
+        fromJS(action.contact)
+      );
+    case RECEIVE_UPDATED_CONTACT:
       return state.set(
         String(action.contact.id),
         fromJS(action.contact)
