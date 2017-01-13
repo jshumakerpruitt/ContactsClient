@@ -36,7 +36,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   constructor(props) {
     super(props);
-    this.state = { formHidden: false };
+    this.state = { formHidden: true };
     this.toggleForm = this.toggleForm.bind(this);
   }
 

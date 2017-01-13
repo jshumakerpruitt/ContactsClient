@@ -3,19 +3,15 @@ import expect from 'expect';
 import {
   SUBMIT_AUTH,
   RECEIVE_TOKEN,
-  RECEIVE_AUTH_ERROR,
   LOG_OUT,
   SUBMIT_SIGNUP,
-  RECEIVE_SIGNUP_ERROR,
 } from '../constants';
 
 import {
   logOut,
   submitAuth,
   receiveToken,
-  receiveAuthError,
   submitSignUp,
-  receiveSignUpError,
 } from '../actions';
 
 describe('App Actions', () => {
@@ -56,18 +52,6 @@ describe('App Actions', () => {
     });
   });
 
-  describe('receiveAuthError', () => {
-    it('should return the correct type and an error msg ', () => {
-      const authError = 'myerror';
-      const expectedResult = {
-        type: RECEIVE_AUTH_ERROR,
-        authError,
-      };
-
-      expect(receiveAuthError(authError)).toEqual(expectedResult);
-    });
-  });
-
   describe('submitSignUp', () => {
     it('should return correct type and email,username,password', () => {
       const email = 'fake@fake.com';
@@ -83,18 +67,6 @@ describe('App Actions', () => {
       };
 
       expect(submitSignUp(params)).toEqual(expectedResult);
-    });
-  });
-
-  describe('receiveSignUpError', () => {
-    it('should return the correct type and an error msg ', () => {
-      const signUpError = 'myerror';
-      const expectedResult = {
-        type: RECEIVE_SIGNUP_ERROR,
-        signUpError,
-      };
-
-      expect(receiveSignUpError(signUpError)).toEqual(expectedResult);
     });
   });
 });

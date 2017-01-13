@@ -1,7 +1,9 @@
 // TODO: BOO no tests
 import { capitalize, keys, uniq } from 'lodash';
-import { takeLatest } from 'redux-saga';
+import { push, LOCATION_CHANGE } from 'react-router-redux';
+import { reset } from 'redux-form/immutable';
 
+import { takeLatest } from 'redux-saga';
 import {
   take,
   call,
@@ -10,9 +12,6 @@ import {
   fork,
   cancel,
 } from 'redux-saga/effects';
-import { reset } from 'redux-form/immutable';
-
-import { push, LOCATION_CHANGE } from 'react-router-redux';
 
 import {
   SUBMIT_AUTH,
@@ -32,8 +31,7 @@ import {
 import {
   logOut,
   receiveToken,
-  receiveAuthError,
-  receiveSignUpError,
+  receiveErrors,
   receiveFlash,
 } from 'containers/App/actions';
 
@@ -41,11 +39,8 @@ import {
   receiveContacts,
   receiveContact,
   receiveUpdatedContact,
-  receiveContactsError,
   // createContactSuccess,
-  createContactError,
   deleteContactSuccess,
-  deleteContactError,
 } from './actions';
 
 import request, { getOptions } from 'utils/request';
@@ -73,11 +68,8 @@ export function* postAuth(action) {
     );
     yield put(receiveToken(authResponse.jwt));
   } catch (err) {
-    // TODO: err was causing a crazy serialization error
-    // posibly because rail api is returning a malformed
-    // response.statusText. Just `put` a generic error for now
-    // yield put(receiveAuthError(err));
-    yield put(receiveAuthError('Unable to Authenticate'));
+    // Knock gem returns an empty body on bad auth
+    yield put(receiveErrors('Unable to Authenticate'));
   }
 }
 
@@ -120,7 +112,12 @@ export function* postSignUp(action) {
                                       options);
     yield put(receiveToken(signUpResponse.jwt));
   } catch (err) {
-    yield put(receiveSignUpError('Unable to create account. Email is required. Email must be unique.'));
+    const errorHash = yield err.response.json();
+    const messages = parseErrors(errorHash);
+
+    for (let i = 0; i < messages.length; i += 1) {
+      yield put(receiveErrors(messages[i]));
+    }
   }
 }
 
@@ -166,7 +163,7 @@ export function* postContact(action) {
     const messages = parseErrors(errorHash);
 
     for (let i = 0; i < messages.length; i += 1) {
-      yield put(createContactError(messages[i]));
+      yield put(receiveErrors(messages[i]));
     }
 
     // trash token anytime you get 401
@@ -212,7 +209,7 @@ export function* fetchContacts() {
     if (err.response.status === 401) {
       yield put(logOut());
     }
-    yield put(receiveContactsError(err));
+    yield put(receiveErrors(err));
   }
 }
 
@@ -253,7 +250,7 @@ export function* deleteContact(action) {
     if (err.response && err.response.status === 401) {
       yield put(logOut());
     }
-    yield put(deleteContactError(err));
+    yield put(receiveErrors(err));
   }
 }
 
@@ -299,7 +296,13 @@ export function* patchContact(action) {
       yield put(logOut());
       yield put(push('/'));
     }
-    yield put('Unable to update contact. Email is required. Email must be unique.');
+    const errorHash = yield err.response.json();
+    delete errorHash.user;
+    const messages = parseErrors(errorHash);
+
+    for (let i = 0; i < messages.length; i += 1) {
+      yield put(receiveErrors(messages[i]));
+    }
   }
 }
 

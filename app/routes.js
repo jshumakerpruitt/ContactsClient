@@ -39,26 +39,6 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/edit_contact/:id',
-      name: 'editContactsPage',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          System.import('containers/EditContactsPage/reducer'),
-          System.import('containers/EditContactsPage/sagas'),
-          System.import('containers/EditContactsPage'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('editContactsPage', reducer.default);
-          injectSagas(sagas.default);
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {

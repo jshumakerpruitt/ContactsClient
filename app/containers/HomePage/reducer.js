@@ -14,8 +14,6 @@ import {
   RECEIVE_CONTACTS,
   RECEIVE_UPDATED_CONTACT,
   RECEIVE_CONTACT,
-  RECEIVE_CONTACTS_ERROR,
-  CREATE_CONTACT_ERROR,
   DELETE_CONTACT_SUCCESS,
 } from './constants';
 
@@ -81,25 +79,7 @@ const contactIds = (
   }
 };
 
-const errors = (
-  state = fromJS({
-    fetchContactsError: null,
-    contactCreationError: null,
-  }),
-  action
-) => {
-  switch (action.type) {
-    case RECEIVE_CONTACTS_ERROR:
-      return state.set('fetchContactsError', action.fetchContactsError);
-    case CREATE_CONTACT_ERROR:
-      return state.set('contactCreationError', action.contactCreationError);
-    default:
-      return state;
-  }
-};
-
 export default combineReducers({
   contacts,
   contactIds,
-  errors,
 });

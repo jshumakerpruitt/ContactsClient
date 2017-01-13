@@ -37,8 +37,6 @@ class ContactEdit extends React.Component {
         style={styles.container}
         flexColumn
         align="center"
-        px={3}
-        py={0}
         m={0}
       >
         <Flex
@@ -56,7 +54,8 @@ class ContactEdit extends React.Component {
         </Flex>
         <Flex
           col={12}
-          p={0}
+          px={3}
+          py={0}
           mt={3}
           style={styles.imgWrapper}
         >
@@ -74,7 +73,7 @@ class ContactEdit extends React.Component {
             <Button
               px={3}
               mb={3}
-              theme="error"
+              theme="secondary"
               className="delete-button"
               onClick={this.props.toggleEdit}
             >
@@ -83,10 +82,10 @@ class ContactEdit extends React.Component {
                 align="center"
               >
                 <Icon
-                  name="close"
+                  name="chevronLeft"
                 />
                 <Flex px={1}>
-                Cancel
+                Back
                 </Flex>
               </Flex>
             </Button>
@@ -101,6 +100,7 @@ const styles = {
   container: {
     overflow: 'hidden',
     width: '90vw',
+    maxWidth: '460px',
     boxSizing: 'border-box',
     borderRadius: '2px',
     backgroundColor: '#fff',

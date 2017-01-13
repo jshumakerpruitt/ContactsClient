@@ -1,18 +1,29 @@
 import React from 'react';
+
+import { Flex } from 'reflexbox';
 import { Input } from 'rebass';
 
-export const inputField = (options) => (field) => (
-  <Input
-    label={options.label}
-    name={field.input.name}
-    value={field.input.value}
-    onChange={(event) => field.input.onChange(event.target.value)}
-    placeholder={options.placeholder}
-    type={options.type}
-    rounded
-  />
-);
-
+export const inputField = (options) => (field) => {
+  const { input, meta: { error } } =
+field;
+  return (
+    <Flex
+      flexColumn
+    >
+      <Input
+        autoOff
+        label={options.label}
+        name={input.name}
+        value={input.value}
+        onChange={(event) => input.onChange(event.target.value)}
+        placeholder={options.placeholder}
+        type={options.type}
+        message={error || ''}
+        rounded
+      />
+    </Flex>
+  );
+};
 export const emailField = inputField({
   label: 'email',
   placeholder: 'email',

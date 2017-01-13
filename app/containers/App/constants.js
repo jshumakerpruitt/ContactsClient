@@ -17,12 +17,11 @@ export const CONTACTS_URL = `${API_ROOT}/contacts`;
 
 export const SUBMIT_AUTH = 'contacts/App/SUBMIT_AUTH';
 export const RECEIVE_TOKEN = 'contacts/App/RECEIVE_TOKEN';
-export const RECEIVE_AUTH_ERROR = 'contacts/App/RECEIVE_AUTH_ERROR';
 export const LOG_OUT = 'contacts/App/LOG_OUT';
 export const SUBMIT_SIGNUP = 'contacts/App/SUBMIT_SIGNUP';
-export const RECEIVE_SIGNUP_ERROR = 'contacts/App/RECEIVE_SIGNUP_ERROR';
 export const DEFAULT_LOCALE = 'en';
 
+export const RECEIVE_ERRORS = 'contacts/App/RECEIVE_ERRORS';
 export const CLEAR_ERRORS = 'contacts/App/CLEAR_ERRORS';
 export const RECEIVE_FLASH = 'contacts/App/RECEIVE_FLASH';
 export const CLEAR_FLASH = 'contacts/App/CLEAR_FLASH';

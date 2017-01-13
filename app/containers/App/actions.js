@@ -16,15 +16,15 @@
  */
 
 import {
+  SUBMIT_SIGNUP,
   SUBMIT_AUTH,
   RECEIVE_TOKEN,
-  RECEIVE_AUTH_ERROR,
   LOG_OUT,
+
+  RECEIVE_ERRORS,
   CLEAR_ERRORS,
-  CLEAR_FLASH,
   RECEIVE_FLASH,
-  SUBMIT_SIGNUP,
-  RECEIVE_SIGNUP_ERROR,
+  CLEAR_FLASH,
 } from './constants';
 
 export const submitAuth = (params) => {
@@ -45,11 +45,6 @@ export const logOut = () => ({
   type: LOG_OUT,
 });
 
-export const receiveAuthError = (authError) => ({
-  type: RECEIVE_AUTH_ERROR,
-  authError,
-});
-
 export const submitSignUp = (params) => {
   const { email, username, password } = params;
   return {
@@ -60,9 +55,9 @@ export const submitSignUp = (params) => {
   };
 };
 
-export const receiveSignUpError = (signUpError) => ({
-  type: RECEIVE_SIGNUP_ERROR,
-  signUpError,
+export const receiveErrors = (errors) => ({
+  type: RECEIVE_ERRORS,
+  errors,
 });
 
 export const clearErrors = () => ({
@@ -73,7 +68,6 @@ export const receiveFlash = (flash) => ({
   type: RECEIVE_FLASH,
   flash,
 });
-
 
 export const clearFlash = () => ({
   type: CLEAR_FLASH,

@@ -35,11 +35,18 @@ export class ContactGrid extends React.Component { // eslint-disable-line react/
 
   constructor(props) {
     super(props);
-    this.state = { overlay: false, idx: 1, edit: true };
+    this.state = {
+      overlay: false,
+      idx: 1,
+      edit: false,
+      danger: false,
+    };
+
     this.openOverlay = this.openOverlay.bind(this);
     this.closeOverlay = this.closeOverlay.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
+    this.toggleDanger = this.toggleDanger.bind(this);
   }
 
   componentDidMount() {
@@ -51,7 +58,7 @@ export class ContactGrid extends React.Component { // eslint-disable-line react/
   }
 
   closeOverlay() {
-    this.setState({ overlay: false });
+    this.setState({ overlay: false, edit: false, danger: false });
   }
 
   handleDelete() {
@@ -60,6 +67,10 @@ export class ContactGrid extends React.Component { // eslint-disable-line react/
 
   toggleEdit() {
     this.setState({ edit: !this.state.edit });
+  }
+
+  toggleDanger() {
+    this.setState({ danger: !this.state.danger });
   }
 
   render() {
@@ -75,6 +86,10 @@ export class ContactGrid extends React.Component { // eslint-disable-line react/
         <Overlay
           onDismiss={this.closeOverlay}
           open={this.state.overlay}
+          style={{ maxHeight: '100vh',
+            overflowY: 'scroll',
+
+          }}
         >
           {this.state.edit ?
             <ContactEdit
@@ -86,6 +101,8 @@ export class ContactGrid extends React.Component { // eslint-disable-line react/
             />
           :
             <Contact
+              danger={this.state.danger}
+              toggleDanger={this.toggleDanger}
               contact={contacts[this.state.idx]}
               onDismiss={this.closeOverlay}
               toggleEdit={this.toggleEdit}

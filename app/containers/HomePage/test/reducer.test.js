@@ -3,12 +3,7 @@ import homePageReducer from '../reducer';
 
 import {
   receiveContact,
-
   receiveContacts,
-  receiveContactsError,
-  createContactError,
-
-//  deleteContactError,
   deleteContactSuccess,
 } from '../actions';
 
@@ -21,10 +16,6 @@ describe('homePageReducer', () => {
     state = fromJS({
       contacts: {},
       contactIds: [],
-      errors: {
-        fetchContactsError: null,
-        contactCreationError: null,
-      },
     });
   });
 
@@ -50,20 +41,6 @@ describe('homePageReducer', () => {
     const expectedResult = state.set('contactIds', fromJS([1]))
                                 .set('contacts', fromJS({ 1: fixture }));
     expect(homePageReducer(state, receiveContact(fixture)))
-      .toEqual(expectedResult);
-  });
-
-  it('should handle receiveContactsError', () => {
-    const fixture = 'myerror';
-    const expectedResult = state.setIn(['errors', 'fetchContactsError'], fixture);
-    expect(homePageReducer(state, receiveContactsError(fixture)))
-      .toEqual(expectedResult);
-  });
-
-  it('should handle createContactError', () => {
-    const fixture = 'myerror';
-    const expectedResult = state.setIn(['errors', 'contactCreationError'], fixture);
-    expect(homePageReducer(state, createContactError(fixture)))
       .toEqual(expectedResult);
   });
 

@@ -11,22 +11,18 @@ import {
 
   UPDATE_CONTACT,
   UPDATE_CONTACT_SUCCESS,
-  UPDATE_CONTACT_ERROR,
 
   RECEIVE_CONTACT,
   RECEIVE_UPDATED_CONTACT,
 
   REQUEST_CONTACTS,
   RECEIVE_CONTACTS,
-  RECEIVE_CONTACTS_ERROR,
 
   SUBMIT_CONTACT,
   CREATE_CONTACT_SUCCESS,
-  CREATE_CONTACT_ERROR,
 
   DELETE_CONTACT,
   DELETE_CONTACT_SUCCESS,
-  DELETE_CONTACT_ERROR,
 } from './constants';
 
 export const requestContacts = () => ({
@@ -49,11 +45,6 @@ export const receiveContact = (contact) => ({
 });
 
 
-export const receiveContactsError = (fetchContactsError) => ({
-  type: RECEIVE_CONTACTS_ERROR,
-  fetchContactsError,
-});
-
 export const submitContact = (contact) =>
    ({
      type: SUBMIT_CONTACT,
@@ -65,11 +56,6 @@ export const createContactSuccess = () => ({
   type: CREATE_CONTACT_SUCCESS,
 });
 
-export const createContactError = (contactCreationError) => ({
-  type: CREATE_CONTACT_ERROR,
-  contactCreationError,
-});
-
 export const deleteContact = (id) => ({
   type: DELETE_CONTACT,
   id,
@@ -78,11 +64,6 @@ export const deleteContact = (id) => ({
 export const deleteContactSuccess = (id) => ({
   type: DELETE_CONTACT_SUCCESS,
   id,
-});
-
-export const deleteContactError = (contactDeletionError) => ({
-  type: DELETE_CONTACT_ERROR,
-  contactDeletionError,
 });
 
 export const requestContact = (id) => ({
@@ -98,11 +79,6 @@ export const updateContact = (contact) => ({
 export const updateContactSuccess = (contact) => ({
   type: UPDATE_CONTACT_SUCCESS,
   contact,
-});
-
-export const updateContactError = (error) => ({
-  type: UPDATE_CONTACT_ERROR,
-  error,
 });
 
 export const receiveContactForUpdate = (contact) => ({
