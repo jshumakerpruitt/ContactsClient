@@ -87,7 +87,7 @@ export class ContactGrid extends React.Component { // eslint-disable-line react/
           onDismiss={this.closeOverlay}
           open={this.state.overlay}
           style={{ maxHeight: '100vh',
-            overflowY: 'scroll',
+            overflowY: 'auto',
 
           }}
         >
